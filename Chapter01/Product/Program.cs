@@ -22,13 +22,22 @@ namespace ProductSample {
             //DateTime date = new DateTime(2023, 5, 8);
             DateTime date = DateTime.Today;
 
-            Console.WriteLine("今日の日付：" + date.Year + "年" + date.Month + "月" + date.Day + "日");
+            Console.WriteLine("今日の日付："
+                + date.Year + "年"
+                + date.Month + "月"
+                + date.Day + "日");
 
             //10日後を求める
-            Console.WriteLine("10日後：" + date.AddDays(10).Year + "年" + date.AddDays(10).Month + "月" + date.AddDays(10).Day + "日");
-            DateTime daysBefore10 = date.AddDays(-10);
-            Console.WriteLine("10日前：" + date.AddDays(-10).Year + "年" + date.AddDays(-10).Month + "月" + date.AddDays(-10).Day + "日");
+            Console.WriteLine("10日後："
+                + date.AddDays(10).Year + "年"
+                + date.AddDays(10).Month + "月"
+                + date.AddDays(10).Day + "日");
+            Console.WriteLine("10日前："
+                + date.AddDays(-10).Year + "年"
+                + date.AddDays(-10).Month + "月"
+                + date.AddDays(-10).Day + "日");
             #endregion
+
 
             #region 演習2
             Console.WriteLine("誕生日を入力");
@@ -39,39 +48,17 @@ namespace ProductSample {
             Console.Write("日：");
             int birthDay = int.Parse(Console.ReadLine());
 
-            DateTime birth = new DateTime(birthYear,birthMonth,birthDay);
+            DateTime birth = new DateTime(birthYear, birthMonth, birthDay);
             TimeSpan interval = DateTime.Today - birth;
 
-            Console.WriteLine("あなたは生まれてから今日まで"+interval.Days+"日目です。");
+            Console.WriteLine("あなたは生まれてから今日まで" + interval.Days + "日目です。");
             #endregion
 
-            #region 誕生日の曜日
-            switch ((int)birth.DayOfWeek)
-            {
-                case 0:
-                    Console.WriteLine("日曜日");
-                    break;
-                case 1:
-                    Console.WriteLine("月曜日");
-                    break;
-                case 2:
-                    Console.WriteLine("火曜日");
-                    break;
-                case 3:
-                    Console.WriteLine("水曜日");
-                    break;
-                case 4:
-                    Console.WriteLine("木曜日");
-                    break;
-                case 5:
-                    Console.WriteLine("金曜日");
-                    break;
-                case 6:
-                    Console.WriteLine("土曜日");
-                    break;
-                default:
-                    break;
-            }
+
+            #region 演習3
+            string[] week = { "日", "月", "火", "水", "木", "金", "土" };
+
+            Console.WriteLine("あなたは" + week[(int)birth.DayOfWeek] + "曜日に生まれました。");
             #endregion
         }
     }
