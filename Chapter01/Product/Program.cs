@@ -51,14 +51,14 @@ namespace ProductSample {
             DateTime birth = new DateTime(birthYear, birthMonth, birthDay);
             TimeSpan interval = DateTime.Today - birth;
 
-            Console.WriteLine("あなたは生まれてから今日まで" + interval.Days + "日目です。");
+            Console.WriteLine("あなたは生まれてから今日まで{0}日目です。",interval.Days);
             #endregion
 
 
             #region 演習3
             string[] week = { "日", "月", "火", "水", "木", "金", "土" };
 
-            Console.WriteLine("あなたは" + week[(int)birth.DayOfWeek] + "曜日に生まれました。");
+            Console.WriteLine("あなたは{0}曜日に生まれました。",week[(int)birth.DayOfWeek]);
             #endregion
         }
     }
