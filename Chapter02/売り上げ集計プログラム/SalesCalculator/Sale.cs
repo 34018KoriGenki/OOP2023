@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SalesCalculator {
     public class Sale {
+
+        //プロパティ Javaでいうフィールド(getter setter)
+
         //店舗名
         public string ShopName { get; set; }
         //商品カテゴリ
