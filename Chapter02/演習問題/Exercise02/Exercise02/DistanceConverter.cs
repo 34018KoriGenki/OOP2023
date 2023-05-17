@@ -17,5 +17,8 @@ namespace Exercise02 {
         public static double ToMeter(double Inch) {
             return Inch * ratio;
         }
+        public static double FromMeter(double Inch) {
+            return Inch / ratio;
+        }
     }
 }
