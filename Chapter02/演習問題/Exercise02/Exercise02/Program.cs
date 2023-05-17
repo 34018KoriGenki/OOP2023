@@ -9,8 +9,8 @@ namespace Exercise02 {
         static void Main(string[] args) {
 
             if (args.Length >= 3 && args[0] == "-tom") {
-                PrintInchToMeterList(int.Parse(args[1]), int.Parse(args[2]));                
-            } else if(args.Length >= 3 && args[0] == "-toi") {
+                PrintInchToMeterList(int.Parse(args[1]), int.Parse(args[2]));
+            } else if (args.Length >= 3 && args[0] == "-toi") {
                 PrintMeterToInchList(int.Parse(args[1]), int.Parse(args[2]));
             }
         }
