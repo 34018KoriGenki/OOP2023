@@ -30,7 +30,7 @@ namespace Exercise01 {
 
         private static void PrintSongs(IEnumerable<Song> lists) {
             foreach (var collection in lists) {
-                Console.WriteLine("Title：{0}\nArtistName：{1}\nLength：{2}：{3:00}\n",collection.Title , collection.ArtistName ,collection.Length/60,collection.Length%60);
+                Console.WriteLine("Title：{0}\nArtistName：{1}\nLength：{2}：{3:00}\n", collection.Title, collection.ArtistName, collection.Length / 60, collection.Length % 60);
             }
         }
     }
