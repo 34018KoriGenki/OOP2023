@@ -6,15 +6,19 @@ using System.Threading.Tasks;
 
 namespace Section01 {
     class Program {
+
         static void Main(string[] args) {
-            Console.WriteLine(Count(5));
+            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4, };
+
+            int count = Count(numbers, delegate (int n) { return n % 2 == 0; });        //匿名メソッド
+            Console.WriteLine(count);
         }
 
-        public static int Count(int num) {
-            var numbers = new[] { 5, 3, 9, 6, 7, 5, 8, 1, 0, 5, 10, 4,};
+       public static int Count(int[] numbers, Predicate<int> judge) {
+
             int count = 0;
             foreach (var n in numbers) {
-                if (n == num) {
+                if (judge(n) == true) {
                     count++;
                 }
             }
