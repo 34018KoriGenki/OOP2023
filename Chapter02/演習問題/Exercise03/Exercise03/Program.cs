@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 namespace Exercise03 {
     class Program {
         static void Main(string[] args) {   //エントリポイント
-            IDictionary<string, int> amounts = null;
+            IDictionary<string,int> amounts = new Dictionary<string , int>();
             var sales = new SalesCounter(@"data\Sales.csv");
-            Console.Write("＊＊売上集計＊＊\n1：店舗別売り上げ\n2：商品カテゴリ別売り上げ\n>");
+            Console.WriteLine("＊＊売上集計＊＊");
+            Console.WriteLine("1：店舗別売り上げ");
+            Console.WriteLine("2：商品カテゴリ別売り上げ");
+            Console.Write(">");
             int val = int.Parse(Console.ReadLine());
             
             if (val == 1) {
                 amounts = AmountPerStore(sales);
-            } else {
+            } else if(val == 2){
                 amounts = AmountPerCategory(sales);
             }
             PrintAmount(amounts);
