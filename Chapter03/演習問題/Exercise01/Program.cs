@@ -26,11 +26,16 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_1(List<int> numbers) {
-            
+            var exists = numbers.Exists(n => n % 8 == 0 || n % 9 == 0);
+            if (exists) {
+                Console.WriteLine("存在します");
+            } else {
+                Console.WriteLine("存在しません");
+            }
         }
 
         private static void Exercise1_2(List<int> numbers) {
-            
+            numbers.ForEach(n =>  Console.WriteLine((double)n/2));
         }
 
         private static void Exercise1_3(List<int> numbers) {
