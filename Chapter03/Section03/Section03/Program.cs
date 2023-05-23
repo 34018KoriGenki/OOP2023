@@ -11,8 +11,32 @@ namespace Section03 {
                "Tokyo", "New Delhi", "Bangkok", "London", "Paris", "Berlin", "Canberra", "Hong Kong",
             };
 
-            var exists = list.Exists(s => s[0] == 'A');
-            Console.WriteLine(exists);
+            #region Exist
+            //var exists = list.Exists(s => s[0] == 'A');
+            //Console.WriteLine(exists);
+            #endregion
+
+            #region Find
+            //var name = list.Find(s => s.Length == 6);
+            //Console.WriteLine(name);
+            #endregion
+
+            #region FindIndex
+            //var index = list.FindIndex(s => s == "Canberra");
+            //Console.WriteLine(index);
+            #endregion
+
+            #region FindAll
+            //var names = list.FindAll(s => s.Length <= 5);
+            //names.ForEach(s => Console.WriteLine(s));
+            //names.ForEach(Console.WriteLine);でも可能
+            #endregion
+
+            #region ConvertAll
+            var names = list.ConvertAll(s => s.ToLower());
+            names.ForEach(s => Console.WriteLine(s));
+            #endregion
+
 
         }
     }
