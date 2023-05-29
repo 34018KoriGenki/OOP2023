@@ -55,7 +55,6 @@ namespace Section04 {
             public string ProductCategory { get; set; }
             //売上高
             public int Amount { get; set; }
-
         }
     }
 }
