@@ -26,7 +26,7 @@ namespace Exercise02 {
                 if (string.IsNullOrEmpty(line))
                     break;
                 Console.WriteLine(names.FindIndex(s => s == line));
-            }while(true);
+            } while (true);
         }
 
         private static void Exercise2_2(List<string> names) {
@@ -41,22 +41,22 @@ namespace Exercise02 {
             foreach (var item in city) {
                 Console.WriteLine(item);
             }
-            
+
         }
 
         private static void Exercise2_4(List<string> names) {
-            foreach (var item in names.Where(s => s.StartsWith("B")).Select(s=>s.Count()/* ←s.lengthでも可 */)) {
+            foreach (var item in names.Where(s => s.StartsWith("B")).Select(s => s.Count()/* ←s.lengthでも可 */)) {
                 Console.WriteLine(item);
             }
 
             //都市名出すとき
             var temp = names.Where(s => s.StartsWith("B")).ToList();
-            temp.ForEach(s => Console.WriteLine("{0},{1}",s,s.Count()));
+            temp.ForEach(s => Console.WriteLine("{0},{1}", s, s.Count()));
 
             //正解
             var selected = names.Where(s => s.StartsWith("B")).Select(s => new { s, s.Length });
             foreach (var item in selected) {
-                Console.WriteLine("{0},{1}",item.s,item.Length);
+                Console.WriteLine("{0},{1}", item.s, item.Length);
             }
         }
     }
