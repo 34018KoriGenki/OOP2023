@@ -18,5 +18,10 @@ namespace Exercise01 {
         public YearMonth AddOneMonth() {
             return new YearMonth(Year, Month < 12 ? Month+1 : 1);
         }
+
+        override
+        public string ToString() {
+            return Year+"年"+Month+"月";
+        }
     }
 }
