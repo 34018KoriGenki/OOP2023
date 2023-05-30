@@ -13,7 +13,7 @@ namespace Exercise02 {
             var c21 = ym.Is21Century;
             Console.WriteLine(c21);
             var ym2 = ym.AddOneMonth();
-            Console.WriteLine(ym2.Month);
+            Console.WriteLine(ym2.ToString());
             Console.WriteLine(ym.ToString());
         
         }

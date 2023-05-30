@@ -16,7 +16,9 @@ namespace Exercise01 {
         }
 
         public YearMonth AddOneMonth() {
-            return new YearMonth(Year, Month < 12 ? Month+1 : 1);
+            int addYear = Month < 12 ? Year : Year + 1;
+            int addMonth = Month < 12 ? Month + 1 : 1;
+            return new YearMonth(addYear,addMonth);
         }
 
         override
