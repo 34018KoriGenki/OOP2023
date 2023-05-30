@@ -8,14 +8,16 @@ using Exercise01;
 namespace Exercise02 {
     class Program {
         static void Main(string[] args) {
-
-            var ym = new YearMonth(2023, 12);
-            var c21 = ym.Is21Century;
-            Console.WriteLine(c21);
-            var ym2 = ym.AddOneMonth();
-            Console.WriteLine(ym2.ToString());
-            Console.WriteLine(ym.ToString());
-        
+            var yms = new YearMonth[] {
+                new YearMonth(2000,1),
+                new YearMonth(2010,5),
+                new YearMonth(2019,12),
+                new YearMonth(2099,12),
+                new YearMonth(2100,1),
+            };
+            foreach (var ym in yms) {
+                Console.WriteLine(ym);
+            }
         }
     }
 }
