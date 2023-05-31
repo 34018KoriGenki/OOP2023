@@ -11,6 +11,8 @@ namespace Exercise02 {
             var str = Console.ReadLine();
             if (int.TryParse(str,out var result)) {
                 Console.WriteLine ($"{result:#,0}") ;
+            } else {
+                Console.WriteLine("数字ではありません");
             }
         }
     }
