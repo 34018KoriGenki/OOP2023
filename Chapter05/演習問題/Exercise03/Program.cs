@@ -36,7 +36,8 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_3(string text) {
-            
+            var str = text.Split(' ');
+            Console.WriteLine(str.Length);
         }
 
         private static void Exercise3_4(string text) {
