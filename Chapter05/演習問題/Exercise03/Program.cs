@@ -37,11 +37,14 @@ namespace Exercise03 {
 
         private static void Exercise3_3(string text) {
             var str = text.Split(' ');
-            Console.WriteLine(str.Length);
+            Console.WriteLine("単語数：{0}",str.Length);
         }
 
         private static void Exercise3_4(string text) {
-            
+            var words = text.Split(' ');
+            foreach (var word in words) {
+                Console.Write(word.Length <= 4 ? word+"\n":null);
+            }
         }
 
         private static void Exercise3_5(string text) {
