@@ -26,7 +26,13 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_1(string text) {
-            
+            var cnt = 0;
+            foreach (var chr in text) {
+                if(chr == ' ') {
+                    cnt++;
+                }
+            }
+            Console.WriteLine("空白の数：{0}",cnt);
         }
 
         private static void Exercise3_2(string text) {
