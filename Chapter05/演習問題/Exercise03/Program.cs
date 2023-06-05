@@ -26,24 +26,24 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_1(string text) {
-            var count = text.Count(s=>s==' ');
-            Console.WriteLine("空白の数：{0}",count);
+            var count = text.Count(s => s == ' ');
+            Console.WriteLine("空白の数：{0}", count);
         }
 
         private static void Exercise3_2(string text) {
-            var str = text.Replace("big","small");
+            var str = text.Replace("big", "small");
             Console.WriteLine(str);
         }
 
         private static void Exercise3_3(string text) {
             var str = text.Split(' ');
-            Console.WriteLine("単語数：{0}",str.Length);
+            Console.WriteLine("単語数：{0}", str.Length);
         }
 
         private static void Exercise3_4(string text) {
             var words = text.Split(' ');
             foreach (var word in words) {
-                Console.Write(word.Length <= 4 ? word+"\n":null);
+                Console.Write(word.Length <= 4 ? word + "\n" : null);
             }
         }
 
