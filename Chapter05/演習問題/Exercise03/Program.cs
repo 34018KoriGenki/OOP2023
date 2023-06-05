@@ -26,34 +26,35 @@ namespace Exercise03 {
         }
 
         private static void Exercise3_1(string text) {
-            var count = text.Count(s => s == ' ');
-            Console.WriteLine("空白の数：{0}", count);
+            var spaces = text.Count(c => c == ' ');
+            Console.WriteLine("空白の数：{0}", spaces);
         }
 
         private static void Exercise3_2(string text) {
-            var str = text.Replace("big", "small");
-            Console.WriteLine(str);
+            var repaced = text.Replace("big", "small");
+            Console.WriteLine(repaced);
         }
 
         private static void Exercise3_3(string text) {
-            var str = text.Split(' ');
-            Console.WriteLine("単語数：{0}", str.Length);
+            var str = text.Split(' ').Length;
+            Console.WriteLine("単語数：{0}", str);
         }
 
         private static void Exercise3_4(string text) {
-            var words = text.Split(' ');
+            var words = text.Split(' ').Where(word => word.Length <= 4);
             foreach (var word in words) {
-                Console.Write(word.Length <= 4 ? word + "\n" : null);
+                Console.WriteLine(word);
             }
         }
 
         private static void Exercise3_5(string text) {
-            var words = text.Split(' ');
-            var sb = new StringBuilder();
-            foreach (var word in words) {
-                sb.Append(word).Append(" ");
+            var array = text.Split(' ').ToArray();
+            var sb = new StringBuilder(array[0]);
+            foreach (var word in array.Skip(1)) {
+                sb.Append(" ").Append(word);
             }
-            Console.WriteLine(sb.ToString());
+            var createWords = sb.ToString();
+            Console.WriteLine(createWords);
         }
     }
 }
