@@ -37,9 +37,9 @@ namespace Exercise04 {
             };
             ReceptionInfo(baseLines);
 #endif
-            Console.WriteLine("実行時間：{0}s",sw.Elapsed.ToString(@"ss\.fffffff")); //時間表示
+            Console.WriteLine("実行時間：{0}s", sw.Elapsed.ToString(@"ss\.fffffff")); //時間表示
         }
-        
+
         private static void ReceptionInfo(string[] baseLines) {
             foreach (var baseStr in baseLines) {
                 ReceptionInfo(baseStr);
