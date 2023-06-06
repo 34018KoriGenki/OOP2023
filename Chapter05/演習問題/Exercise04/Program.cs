@@ -54,7 +54,7 @@ namespace Exercise04 {
         private static void Print(string[] words) {
             string[] infoStr = { "作家  ：", "代表作：", "誕生年：" };
             for (int i = 0;i < words.Length;i++) {
-                Console.WriteLine(infoStr[i] + words[i].Remove(0, words[i].IndexOf('=') + 1));
+                Console.WriteLine(infoStr[i] + words[i].Substring(words[i].IndexOf('=') + 1));
             }
         }
     }
