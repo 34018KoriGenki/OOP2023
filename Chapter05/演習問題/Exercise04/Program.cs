@@ -21,10 +21,23 @@ namespace Exercise04 {
                                 "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
                                 "Novelist=谷崎潤一郎f;BestWork=春琴抄;Born=1886",
                                 "Novelist=谷崎潤一郎g;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎b;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎c;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎d;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎f;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎g;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
+                                "Novelist=谷崎潤一郎e;BestWork=春琴抄;Born=1886",
             };
             ReceptionInfo(baseLines);
 #endif
-            Console.WriteLine("実行時間：{0}s",sw.Elapsed.ToString(@"ss\.ffffff")); //時間表示
+            Console.WriteLine("実行時間：{0}s",sw.Elapsed.ToString(@"ss\.fffffff")); //時間表示
         }
         
         private static void ReceptionInfo(string[] baseLines) {
