@@ -11,10 +11,12 @@ namespace Section01 {
             Console.WriteLine(numbers.Average());
 
             var books = Books.GetBooks();
-            var booksObj = books.Where(x => x.Title.Contains("物語")).OrderBy(x=> x.Title.Count());
-            Console.WriteLine("タイトルに「物語」が含まれている本の平均ページ数：{0}枚", booksObj.Average(x=> x.Pages));
+            var booksObj = books.Where(x => x.Title.Contains("物語")).Average(x=> x.Pages);
+            Console.WriteLine("タイトルに「物語」が含まれている本の平均ページ数：{0}枚", booksObj);
             Console.WriteLine("***タイトル表示***");
-            foreach (var book in booksObj) {
+
+            var longTitleBooks = books.OrderByDescending(x => x.Title.Length);
+            foreach (var book in longTitleBooks) {
                 Console.WriteLine(book.Title);
             }
         }
