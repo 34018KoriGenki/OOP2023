@@ -33,7 +33,10 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_3(int[] numbers) {
-
+            var convertStr = numbers.Select(x=> x.ToString());
+            foreach (var str in convertStr) {
+                Console.WriteLine(str);
+            }
         }
 
         private static void Exercise1_4(int[] numbers) {
