@@ -41,10 +41,12 @@ namespace Exercise01 {
 
         private static void Exercise1_4(int[] numbers) {
             var sortNumbers = numbers.OrderBy(x => x);
-            Console.WriteLine("{0}\n{1}\n{2}",sortNumbers.ElementAt(0),sortNumbers.ElementAt(1),sortNumbers.ElementAt(2));
+            Console.WriteLine($"{0}\n{1}\n{2}",sortNumbers.ElementAt(0),sortNumbers.ElementAt(1),sortNumbers.ElementAt(2));
         }
 
         private static void Exercise1_5(int[] numbers) {
+            var countNumbers = numbers.Distinct().Where(x=>x >10);
+            Console.WriteLine(countNumbers.Count());
         }
     }
 }
