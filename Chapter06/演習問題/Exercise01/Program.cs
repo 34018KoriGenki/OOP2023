@@ -29,10 +29,11 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_2(int[] numbers) {
-            Console.WriteLine("最後から2つの要素は{0}と{1}です。", numbers.Last(), numbers.ElementAt(numbers.Length - 2));
+            Console.WriteLine("最後は{0}、その前は{1}", numbers.Last(), numbers.ElementAt(numbers.Length - 2));
         }
 
         private static void Exercise1_3(int[] numbers) {
+
         }
 
         private static void Exercise1_4(int[] numbers) {
