@@ -43,36 +43,42 @@ namespace Exercise02 {
         private static void Exercise2_1(List<Book> books) {
             var retBooks = books.Where(s => s.Title == "ワンダフル・C#ライフ");
             foreach (var book in retBooks) {
-                Console.WriteLine("価格：{0},ページ数：{1}", book.Price,book.Pages);
+                Console.WriteLine("価格：{0},ページ数：{1}", book.Price, book.Pages);
             }
         }
 
         private static void Exercise2_2(List<Book> books) {
-            Console.WriteLine(books.Count( s=> s.Title.Contains("C#")));
+            Console.WriteLine(books.Count(s => s.Title.Contains("C#")));
         }
 
         private static void Exercise2_3(List<Book> books) {
             var retBooks = books.Where(s => s.Title.Contains("C#"));
-            Console.WriteLine(retBooks.Average(n=>n.Pages));
+            Console.WriteLine(retBooks.Average(n => n.Pages));
         }
 
         private static void Exercise2_4(List<Book> books) {
-            Console.WriteLine(books[books.FindIndex(n=>n.Price >= 4000)].Title);
+            var book = books.FindIndex(n => n.Price >= 4000);
+            Console.WriteLine(book > -1 ? books[book].Title : "0");
+
         }
 
         private static void Exercise2_5(List<Book> books) {
-            Console.WriteLine(books.Where(n => n.Price <=4000).Max(n=>n.Pages));
+            Console.WriteLine(books.Where(n => n.Price <= 4000).Max(n => n.Pages));
         }
 
         private static void Exercise2_6(List<Book> books) {
             var retBooks = books.Where(n => n.Pages >= 400);
-            foreach (var book in retBooks.OrderByDescending(n=>n.Price)) {
+            foreach (var book in retBooks.OrderByDescending(n => n.Price)) {
                 Console.WriteLine("{0} {1}", book.Title, book.Price);
             }
 
         }
 
         private static void Exercise2_7(List<Book> books) {
+            var retBooks = books.Where(n => n.Title.Contains("C#") && n.Pages <= 500);
+            foreach (var book in retBooks) {
+                Console.WriteLine(book.Title);
+            }
         }
     }
 
