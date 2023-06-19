@@ -57,8 +57,8 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_4(List<Book> books) {
-            var book = books.FindIndex(n => n.Price >= 4000);
-            Console.WriteLine(book > -1 ? books[book].Title : "0");
+            var book = books.FirstOrDefault(n => n.Price >= 4000);
+            Console.WriteLine(book != null ? book.Title : "該当なし");
 
         }
 
