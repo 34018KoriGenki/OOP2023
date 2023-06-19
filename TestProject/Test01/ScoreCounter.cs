@@ -5,10 +5,6 @@ namespace Test01 {
     class ScoreCounter {
         private IEnumerable<Student> _score;
 
-        public string Name { get; set; }
-        public string Subject { get; set; }
-        public int Score { get; set; }
-
         // コンストラクタ
         public ScoreCounter(string filePath) {
 
