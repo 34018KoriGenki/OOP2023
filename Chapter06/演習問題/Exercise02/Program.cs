@@ -57,6 +57,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_4(List<Book> books) {
+            Console.WriteLine(books[books.FindIndex(n=>n.Price >= 4000)].Title);
         }
 
         private static void Exercise2_5(List<Book> books) {
