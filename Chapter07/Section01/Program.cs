@@ -59,7 +59,7 @@ namespace Section01 {
 
             num = Comvert(Form(str));
 
-            while (num<0||num>3) {
+            while (num < 0 || num > 3) {
                 Console.Write("1.一覧表示  2.県名指定\n>");
                 str = Console.ReadLine();
                 num = Comvert(Form(str));
@@ -101,7 +101,7 @@ namespace Section01 {
 
         private static int Comvert(string str) {
             for (int i = 0;i <= 9;i++) {
-            if (str == i.ToString()) return i;
+                if (str == i.ToString()) return i;
             }
             var cultureInfo = new CultureInfo("ja-JP");
             for (int i = 0;i <= 9;i++) {
