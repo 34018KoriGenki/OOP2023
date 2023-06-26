@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -17,7 +18,8 @@ namespace Section02 {
 
         private static Dictionary<string, CityInfo> InputPrefInfo(Dictionary<string, CityInfo> prefInfo) {
             var judge = "Y";
-            string pref, city;
+            string pref, city, str;
+            int population = 0;
             Console.WriteLine("***県庁所在地の登録***");
             Console.Write("県名：");
             pref = Console.ReadLine();
@@ -36,11 +38,18 @@ namespace Section02 {
                         Console.Write("所在地：");
                         city = Console.ReadLine();
                     } while (city == "");
+                    prefInfo[pref] = new CityInfo();
                     prefInfo[pref].City = city;
                     do {
                         Console.Write("人口：");
-                        city = Console.ReadLine();
-                    } while (city == "");
+                        str = emCon(Console.ReadLine());
+                        if (int.TryParse(str, out population)) {
+                            population = int.Parse(str);
+                        } else {
+                            str = "";
+                        }
+                    } while (str == "");
+                    prefInfo[pref].Population = population;
 
                 }
                 judge = "Y";
@@ -59,16 +68,16 @@ namespace Section02 {
             Console.Write("1.一覧表示  2.県名指定\n>");
             str = Console.ReadLine();
 
-            num = Comvert(Form(str));
+            num = Convert.ToInt32(emCon(Form(str)));
 
             while (num < 0 || num > 3) {
                 Console.Write("1.一覧表示  2.県名指定\n>");
                 str = Console.ReadLine();
-                num = Comvert(Form(str));
+                num = Convert.ToInt32(Form(str));
             }
             if (num == 1) {
                 foreach (var item in prefInfo) {
-                    Console.WriteLine("{0}【{0}({2})】", item.Key, item.Value.City, item.Value.Population);
+                    Console.WriteLine("{0}【{1}({2})】", item.Key, item.Value.City, item.Value.Population);
                 }
 
             } else {
@@ -100,16 +109,9 @@ namespace Section02 {
             var cultureInfo = new CultureInfo("ja-JP");
             return string.Compare(judge, str, cultureInfo, CompareOptions.IgnoreWidth | CompareOptions.IgnoreCase) == 0;
         }
-
-        private static int Comvert(string str) {
-            for (int i = 0;i <= 9;i++) {
-                if (str == i.ToString()) return i;
-            }
+        private static string emCon(string str) {
             var cultureInfo = new CultureInfo("ja-JP");
-            for (int i = 0;i <= 9;i++) {
-                if (string.Compare(i.ToString(), str, cultureInfo, CompareOptions.IgnoreWidth) == 0) return i;
-            }
-            return Comvert(Form(str));
+            return Strings.StrConv(str, VbStrConv.Narrow);
         }
 
         class CityInfo {
