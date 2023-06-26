@@ -22,7 +22,6 @@ namespace Section02 {
                 pref = emCon(Console.ReadLine());
             } while (pref == "");
             while (pref != "999") {
-                prefInfo[pref] = new List<CityInfo>();
                 do {
                     Console.Write("市町村名：");
                     city = Console.ReadLine();
@@ -67,9 +66,10 @@ namespace Section02 {
             } while (str == "");
 
             if (num == 1) {
-                foreach (var item in prefInfo) {
-                    foreach (var info in item.Value) {
-                        Console.Write("{0}【{1}({2})】",item.Key, info.City, info.Population);
+                foreach (var item in prefInfo.Keys) {
+                    Console.Write("{0}",item);
+                    foreach (var info in prefInfo[item]) {
+                        Console.Write("【{0}({1})】", info.City, info.Population);
                     }
                     Console.WriteLine();
                 }
