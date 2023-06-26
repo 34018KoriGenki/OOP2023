@@ -1,23 +1,21 @@
-﻿using Microsoft.VisualBasic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Section01 {
+namespace Section02 {
     class Program {
         static void Main(string[] args) {
-
-            var prefInfo = new Dictionary<string, string>();
+            var prefInfo = new Dictionary<string, CityInfo>();
 
             prefInfo = InputPrefInfo(prefInfo);
 
             OutputPrefInfo(prefInfo);
         }
 
-        private static Dictionary<string, string> InputPrefInfo(Dictionary<string, string> prefInfo) {
+        private static Dictionary<string, CityInfo> InputPrefInfo(Dictionary<string, CityInfo> prefInfo) {
             var judge = "Y";
             string pref, city;
             Console.WriteLine("***県庁所在地の登録***");
@@ -38,7 +36,11 @@ namespace Section01 {
                         Console.Write("所在地：");
                         city = Console.ReadLine();
                     } while (city == "");
-                    prefInfo[pref] = city;
+                    prefInfo[pref].City = city;
+                    do {
+                        Console.Write("人口：");
+                        city = Console.ReadLine();
+                    } while (city == "");
 
                 }
                 judge = "Y";
@@ -49,7 +51,7 @@ namespace Section01 {
             return prefInfo;
         }
 
-        private static void OutputPrefInfo(Dictionary<string, string> prefInfo) {
+        private static void OutputPrefInfo(Dictionary<string, CityInfo> prefInfo) {
             string writePref;
             string str;
             int num;
@@ -66,7 +68,7 @@ namespace Section01 {
             }
             if (num == 1) {
                 foreach (var item in prefInfo) {
-                    Console.WriteLine("県名：{0}\n所在地：{1}", item.Key, item.Value);
+                    Console.WriteLine("{0}【{0}({2})】", item.Key, item.Value.City, item.Value.Population);
                 }
 
             } else {
@@ -108,6 +110,11 @@ namespace Section01 {
                 if (string.Compare(i.ToString(), str, cultureInfo, CompareOptions.IgnoreWidth) == 0) return i;
             }
             return Comvert(Form(str));
+        }
+
+        class CityInfo {
+            public string City { get; set; }
+            public int Population { get; set; }
         }
     }
 }
