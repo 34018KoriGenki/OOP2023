@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,113 +9,93 @@ using System.Threading.Tasks;
 namespace Section02 {
     class Program {
         static void Main(string[] args) {
-            var prefInfo = new Dictionary<string, CityInfo>();
-
-            prefInfo = InputPrefInfo(prefInfo);
-
-            OutputPrefInfo(prefInfo);
+            var prefInfo = new Dictionary<string, List<CityInfo>>();
+            prefInfo = InputPref(prefInfo);
+            OutputPref(prefInfo);
         }
 
-        private static Dictionary<string, CityInfo> InputPrefInfo(Dictionary<string, CityInfo> prefInfo) {
-            var judge = "Y";
-            string pref, city;
-            Console.WriteLine("***県庁所在地の登録***");
-            Console.Write("県名：");
-            pref = Console.ReadLine();
-
-            while (!Judgement(pref, "999")) {
-                if (prefInfo.Any(n => n.Key == pref) && pref != "") {
-                    Console.WriteLine("県名重複、上書きしますか?");
-                    do {
-                        Console.Write("(Y/N)：");
-                        judge = Console.ReadLine();
-                    } while (!(Judgement(judge, "Y") || Judgement(judge, "N")));
-                }
-
-                if (pref != "" && Judgement(judge, "Y")) {
-                    do {
-                        Console.Write("所在地：");
-                        city = Console.ReadLine();
-                    } while (city == "");
-                    prefInfo[pref].City = city;
-                    do {
-                        Console.Write("人口：");
-                        city = Console.ReadLine();
-                    } while (city == "");
-
-                }
-                judge = "Y";
+        static Dictionary<string, List<CityInfo>> InputPref(Dictionary<string, List<CityInfo>> prefInfo) {
+            string pref, city, str;
+            int population;
+            do {
                 Console.Write("県名：");
-                pref = Console.ReadLine();
+                pref = emCon(Console.ReadLine());
+            } while (pref == "");
+            while (pref != "999") {
+                prefInfo[pref] = new List<CityInfo>();
+                do {
+                    Console.Write("市町村名：");
+                    city = Console.ReadLine();
+                } while (city == "");
+                do {
+                    Console.Write("人口数：");
+                    str = emCon(Console.ReadLine());
+                    if (int.TryParse(str, out population)) {
+                        population = int.Parse(str);
+                    } else {
+                        str = "";
+                    }
+                } while (str == "");
+
+
+                if (!prefInfo.ContainsKey(pref)) {
+                    prefInfo[pref] = new List<CityInfo>();
+                }
+                var cityInfo = new CityInfo() { City = city, Population = population };
+                prefInfo[pref].Add(cityInfo);
+
+                do {
+                    Console.Write("県名：");
+                    pref = emCon(Console.ReadLine());
+                } while (pref == "");
             }
 
             return prefInfo;
         }
 
-        private static void OutputPrefInfo(Dictionary<string, CityInfo> prefInfo) {
-            string writePref;
+        private static void OutputPref(Dictionary<string, List<CityInfo>> prefInfo) {
             string str;
-            int num;
-            Console.WriteLine("***県庁所在地の出力***");
-            Console.Write("1.一覧表示  2.県名指定\n>");
-            str = Console.ReadLine();
+            int num = 0;
+            do {
+                Console.WriteLine("1.一覧表示 2.県名指定");
+                str = emCon(Console.ReadLine());
+                if (int.TryParse(str, out num)) {
+                    num = int.Parse(str);
+                } else {
+                    str = "";
+                }
+            } while (str == "");
 
-            num = Comvert(Form(str));
-
-            while (num < 0 || num > 3) {
-                Console.Write("1.一覧表示  2.県名指定\n>");
-                str = Console.ReadLine();
-                num = Comvert(Form(str));
-            }
             if (num == 1) {
                 foreach (var item in prefInfo) {
-                    Console.WriteLine("{0}【{0}({2})】", item.Key, item.Value.City, item.Value.Population);
-                }
-
-            } else {
-                Console.Write("県名を入力：");
-                writePref = Console.ReadLine();
-                try {
-                    while (Judgement(writePref, "")) {
-                        Console.Write("県名を入力：");
-                        writePref = Console.ReadLine();
+                    foreach (var info in item.Value) {
+                        Console.Write("{0}【{1}({2})】",item.Key, info.City, info.Population);
                     }
-                    Console.WriteLine($"{prefInfo[writePref]}です。");
-                } catch (Exception) {
-                    Console.WriteLine("データが存在しません。");
+                    Console.WriteLine();
                 }
-
-            }
-        }
-
-        private static string Form(string str) {
-            while (Judgement(str, "")) {
-                Console.Write("1.一覧表示  2.県名指定\n>");
+            } else {
+                Console.Write("県名：");
                 str = Console.ReadLine();
+                if (prefInfo.ContainsKey(str)) {
+                    Console.Write("{0}", str);
+                    foreach (var info in prefInfo[str]) {
+                        Console.Write("【{0}({1})】", info.City, info.Population);
+                    }
+                    Console.WriteLine();
+                } else {
+                    Console.WriteLine("存在しません");
+                }
             }
-
-            return str;
         }
 
-        private static bool Judgement(string judge, string str) {
+        private static string emCon(string str) {
             var cultureInfo = new CultureInfo("ja-JP");
-            return string.Compare(judge, str, cultureInfo, CompareOptions.IgnoreWidth | CompareOptions.IgnoreCase) == 0;
+            return Strings.StrConv(str, VbStrConv.Narrow);
         }
 
-        private static int Comvert(string str) {
-            for (int i = 0;i <= 9;i++) {
-                if (str == i.ToString()) return i;
-            }
-            var cultureInfo = new CultureInfo("ja-JP");
-            for (int i = 0;i <= 9;i++) {
-                if (string.Compare(i.ToString(), str, cultureInfo, CompareOptions.IgnoreWidth) == 0) return i;
-            }
-            return Comvert(Form(str));
-        }
-
-        class CityInfo {
-            public string City { get; set; }
-            public int Population { get; set; }
-            }
+    }
+    class CityInfo {
+        public string City { get; set; }
+        public int Population { get; set; }
     }
 }
