@@ -15,19 +15,37 @@ namespace Exercise01 {
 
         private static void Exercise1_1(string text) {
             var dict = new Dictionary<char, int>();
-            var txt = text.ToUpper();
-            for (int i = 0;i < 26;i++) {
-                var key = (char)('A' + i);
-                dict.Add(key,txt.Count(c => c == key));
+            foreach (var ch in text) {
+                var uc = char.ToUpper(ch);
+                if ('A' <= uc && uc <= 'Z') {
+                    if (dict.ContainsKey(uc)) {
+                        dict[uc]++;
+                    } else {
+                        dict[uc] = 1;
+                    }
+                }
             }
-            foreach (var item in dict) {
-                Console.WriteLine("\'{0}\'：{1}",item.Key,item.Value);
+            foreach (var item in dict.OrderBy(c => c.Key)) {
+                Console.WriteLine("\'{0}\'：{1}", item.Key, item.Value);
             }
-            
+
         }
 
         private static void Exercise1_2(string text) {
-            
+            var dict = new SortedDictionary<char, int>();
+            foreach (var ch in text) {
+                var uc = char.ToUpper(ch);
+                if ('A' <= uc && uc <= 'Z') {
+                    if (dict.ContainsKey(uc)) {
+                        dict[uc]++;
+                    } else {
+                        dict[uc] = 1;
+                    }
+                }
+            }
+            foreach (var item in dict) {
+                Console.WriteLine("\'{0}\'：{1}", item.Key, item.Value);
+            }
         }
     }
 }
