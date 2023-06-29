@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace Exercise02 {
     class Program {
         static void Main(string[] args) {
+            var abbrs = new Abbreviations();
+            Console.WriteLine(abbrs.Count);
         }
     }
 }
