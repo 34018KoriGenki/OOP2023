@@ -11,20 +11,17 @@ namespace Exercise02 {
     // 略語と対応する日本語を管理するクラス
     class Abbreviations : IEnumerable<KeyValuePair<string,string>>{
         private Dictionary<string, string> _dict = new Dictionary<string, string>();
-        public int Count { get; private set; }
-
+        public int Count => _dict.Count();
         // コンストラクタ
         public Abbreviations() {
             var lines = File.ReadAllLines("Abbreviations.txt");
             _dict = lines.Select(line => line.Split('='))
                          .ToDictionary(x => x[0], x => x[1]);
-            Count = _dict.Count();
         }
 
         // 要素を追加
         public void Add(string abbr, string japanese) {
             _dict[abbr] = japanese;
-            Count++;
         }
 
         // インデクサ - 省略語をキーに取る
@@ -46,6 +43,8 @@ namespace Exercise02 {
                     yield return item;
             }
         }
+
+        //7.2.2
 
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
             return ((IEnumerable<KeyValuePair<string, string>>)_dict).GetEnumerator();
