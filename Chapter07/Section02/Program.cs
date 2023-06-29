@@ -67,25 +67,25 @@ namespace Section02 {
 
             if (num == 1) {
                 foreach (var item in prefInfo.Keys) {
-                    Console.Write("{0}",item);
-                    foreach (var info in prefInfo[item]) {
-                        Console.Write("【{0}({1})】", info.City, info.Population);
-                    }
-                    Console.WriteLine();
+                    Console.Write("{0}", item);
+                    PrintInfo(prefInfo, item);
                 }
             } else {
                 Console.Write("県名：");
                 str = Console.ReadLine();
                 if (prefInfo.ContainsKey(str)) {
-                    Console.Write("{0}", str);
-                    foreach (var info in prefInfo[str]) {
-                        Console.Write("【{0}({1})】", info.City, info.Population);
-                    }
-                    Console.WriteLine();
+                    PrintInfo(prefInfo, str);
                 } else {
                     Console.WriteLine("存在しません");
                 }
             }
+        }
+
+        private static void PrintInfo(Dictionary<string, List<CityInfo>> prefInfo, string item) {
+            foreach (var info in prefInfo[item]) {
+                Console.Write("【{0}({1})】", info.City, info.Population);
+            }
+            Console.WriteLine();
         }
 
         private static string emCon(string str) {
