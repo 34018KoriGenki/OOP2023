@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Exercise01 {
@@ -34,11 +35,19 @@ namespace Exercise01 {
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
             var str = dateTime.ToString(@"ggyy年 MM月dd日", culture);
             var dayOfWeek = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
-            Console.WriteLine("{0} {1}",str,dayOfWeek);
+            Console.WriteLine("{0} ({1})",str,dayOfWeek);
         }
 
         private static void DisplayDatePattern3_2(DateTime dateTime) {
+            var culture = new CultureInfo("ja-JP");
+            culture.DateTimeFormat.Calendar = new JapaneseCalendar();
 
+            var dateStr = dateTime.ToString("ggyy年MM月dd日(dddd)", culture);
+            //ゼロサプレスを実施(不要なゼロを取り除く)
+            var str = Regex.Replace(dateStr,@"0(\d)","$1");
+            Console.WriteLine(str);
         }
+
+        
     }
 }
