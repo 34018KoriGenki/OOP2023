@@ -14,17 +14,11 @@ namespace Exercise02 {
             abbrs.Add("NPT", "核兵器不拡散条約");
             Console.WriteLine(abbrs.Count);
 
-            if (abbrs.Remove("IOC"))
-                Console.WriteLine("成功");
-            else
-                Console.WriteLine("失敗 ");
+            Console.WriteLine(abbrs.Remove("IOC") ? "成功" : "失敗");
 
             Console.WriteLine(abbrs.Count);
 
-            if (abbrs.Remove("FIFA"))
-                Console.WriteLine("成功");
-            else
-                Console.WriteLine("失敗 ");
+            Console.WriteLine(abbrs.Remove("FIFA") ? "成功" : "失敗");
 
             Console.WriteLine(abbrs.Count);
 

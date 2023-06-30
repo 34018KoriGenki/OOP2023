@@ -11,7 +11,7 @@ namespace Exercise02 {
     // 略語と対応する日本語を管理するクラス
     class Abbreviations : IEnumerable<KeyValuePair<string, string>> {
         private Dictionary<string, string> _dict = new Dictionary<string, string>();
-        
+
         // コンストラクタ
         public Abbreviations() {
             var lines = File.ReadAllLines("Abbreviations.txt");
