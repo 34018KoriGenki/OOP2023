@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace Exercise01 {
     class Program {
         static void Main(string[] args) {
-            var dateTime = new DateTime(2019, 1, 15, 19, 48, 32);
+            var dateTime = DateTime.Now;
             DisplayDatePattern1(dateTime);
             DisplayDatePattern2(dateTime);
             DisplayDatePattern3(dateTime);
+            DisplayDatePattern3_2(dateTime);
         }
 
         private static void DisplayDatePattern1(DateTime dateTime) {
@@ -31,8 +32,13 @@ namespace Exercise01 {
             //平成31年 1月15日(火曜日)
             var culture = new CultureInfo("ja-JP");
             culture.DateTimeFormat.Calendar = new JapaneseCalendar();
-            var str = dateTime.ToString("ggyy年 MM月dd日", culture);
-            Console.WriteLine(str);
+            var str = dateTime.ToString(@"ggyy年 MM月dd日", culture);
+            var dayOfWeek = culture.DateTimeFormat.GetDayName(dateTime.DayOfWeek);
+            Console.WriteLine("{0} {1}",str,dayOfWeek);
+        }
+
+        private static void DisplayDatePattern3_2(DateTime dateTime) {
+
         }
     }
 }
