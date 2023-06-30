@@ -45,7 +45,7 @@ namespace Exercise02 {
         }
 
         //7.2.1
-        public int Count => _dict.Count();
+        public int Count => _dict.Count;
 
         //7.2.2
         public bool Remove(string abb) => _dict.Remove(abb);
