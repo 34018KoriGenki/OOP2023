@@ -11,7 +11,7 @@ namespace Exercise02 {
     // 略語と対応する日本語を管理するクラス
     class Abbreviations : IEnumerable<KeyValuePair<string, string>> {
         private Dictionary<string, string> _dict = new Dictionary<string, string>();
-        public int Count => _dict.Count();
+        
         // コンストラクタ
         public Abbreviations() {
             var lines = File.ReadAllLines("Abbreviations.txt");
@@ -44,7 +44,11 @@ namespace Exercise02 {
             }
         }
 
+        //7.2.1
+        public int Count => _dict.Count();
+
         //7.2.2
+        public bool Remove(string abb) => _dict.Remove(abb);
 
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
             return ((IEnumerable<KeyValuePair<string, string>>)_dict).GetEnumerator();
