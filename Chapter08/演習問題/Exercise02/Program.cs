@@ -11,8 +11,8 @@ namespace Exercise02 {
             var toDay = dateTime.ToString("yy/MM/dd");
             string nextDay;
             for (int i = 0;i < 7;i++) {
-                nextDay = NextDay(dateTime, (DayOfWeek)i).ToString("yy/MM/dd");
-                Console.WriteLine("{0}の次週の{1}は{2}({3})",toDay,(DayOfWeek)i,nextDay,(Days) i);
+                nextDay = NextDay(dateTime, (DayOfWeek)i).ToString("yy/MM/dd(ddd)");
+                Console.WriteLine("{0}の次週の{1}は{2}",toDay,(DayOfWeek)i,nextDay);
             }
             
         }
@@ -24,16 +24,6 @@ namespace Exercise02 {
             days += 7;
             
             return date.AddDays(days);
-        }
-
-        enum Days : byte {
-            日 = 0,
-            月 = 1,
-            火 = 2,
-            水 = 3,
-            木 = 4,
-            金 = 5,
-            土 = 6,
         }
     }
 }
