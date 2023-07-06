@@ -34,6 +34,9 @@ namespace CalendarApp {
             this.btBeforeYear = new System.Windows.Forms.Button();
             this.btBeforeMonth = new System.Windows.Forms.Button();
             this.btBeforeDay = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbTime = new System.Windows.Forms.TextBox();
+            this.btOld = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -140,20 +143,53 @@ namespace CalendarApp {
             this.btBeforeDay.UseVisualStyleBackColor = true;
             this.btBeforeDay.Click += new System.EventHandler(this.btBeforeDay_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(12, 393);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(144, 29);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "現在時刻：";
+            // 
+            // tbTime
+            // 
+            this.tbTime.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.tbTime.Location = new System.Drawing.Point(162, 393);
+            this.tbTime.Multiline = true;
+            this.tbTime.Name = "tbTime";
+            this.tbTime.Size = new System.Drawing.Size(229, 29);
+            this.tbTime.TabIndex = 3;
+            // 
+            // btOld
+            // 
+            this.btOld.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.btOld.Location = new System.Drawing.Point(58, 317);
+            this.btOld.Name = "btOld";
+            this.btOld.Size = new System.Drawing.Size(143, 39);
+            this.btOld.TabIndex = 5;
+            this.btOld.Text = "年齢計算";
+            this.btOld.UseVisualStyleBackColor = true;
+            this.btOld.Click += new System.EventHandler(this.btOld_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(838, 450);
+            this.Controls.Add(this.btOld);
             this.Controls.Add(this.btBeforeDay);
             this.Controls.Add(this.btForwardDay);
             this.Controls.Add(this.btBeforeMonth);
             this.Controls.Add(this.btForwardMonth);
             this.Controls.Add(this.btBeforeYear);
             this.Controls.Add(this.btForwardYear);
+            this.Controls.Add(this.tbTime);
             this.Controls.Add(this.tbMessage);
             this.Controls.Add(this.btDayCalc);
             this.Controls.Add(this.dtpDate);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "カレンダーアプリ";
@@ -174,6 +210,9 @@ namespace CalendarApp {
         private System.Windows.Forms.Button btBeforeYear;
         private System.Windows.Forms.Button btBeforeMonth;
         private System.Windows.Forms.Button btBeforeDay;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbTime;
+        private System.Windows.Forms.Button btOld;
     }
 }
 
