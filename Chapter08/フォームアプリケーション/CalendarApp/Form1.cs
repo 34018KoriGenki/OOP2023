@@ -10,30 +10,22 @@ using System.Windows.Forms;
 
 namespace CalendarApp {
     public partial class Form1 : Form {
-        private Timer moveTimer;
+        
         public Form1() {
             InitializeComponent();
-            moveTimer = new Timer();
-            moveTimer.Interval = 1;     //タイマーのインターバル(ms)
-            moveTimer.Tick += MoveTimer_Tick;       //デリゲート登録
-            moveTimer.Start();
-        }
-
-        private void MoveTimer_Tick(object sender, EventArgs e) {
-            tbTime.Text = DateTime.Now.ToString("yyyy年MM月dd日(dddd)  HH時mm分ss秒");
         }
 
         private void btDayCalc_Click(object sender, EventArgs e) {
             var dtp = dtpDate.Value;
             TimeSpan timespan = DateTime.Now - dtp;
-            string str = "入力した日付から"+timespan.Days.ToString()+"日経過";
+            string str = "入力した日付から" + timespan.Days.ToString() + "日経過";
             tbMessage.Text = str;
         }
 
         private void btForwardYear_Click(object sender, EventArgs e) {
             var dtp = dtpDate.Value;
             dtpDate.Value = dtp.AddYears(-1);
-            
+
         }
 
         private void btBeforeYear_Click(object sender, EventArgs e) {
@@ -62,8 +54,8 @@ namespace CalendarApp {
         }
 
         private void btOld_Click(object sender, EventArgs e) {
-            var age = GetAge(dtpDate.Value,DateTime.Now);
-            tbMessage.Text = "現在の年齢："+age+"歳";
+            var age = GetAge(dtpDate.Value, DateTime.Now);
+            tbMessage.Text = "現在の年齢：" + age + "歳";
         }
 
         private static int GetAge(DateTime birthday, DateTime targetDay) {
@@ -72,6 +64,15 @@ namespace CalendarApp {
                 age--;
             }
             return age;
+        }
+
+        private void tmTimeDisp_Tick(object sender, EventArgs e) {
+            tbTime.Text = DateTime.Now.ToString("yyyy年MM月dd日(dddd)  HH時mm分ss秒");
+        }
+
+        //実行時に一度だけ実行される
+        private void Form1_Load(object sender, EventArgs e) {
+            tmTimeDisp.Start();
         }
     }
 }

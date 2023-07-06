@@ -24,6 +24,7 @@ namespace CalendarApp {
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
             this.btDayCalc = new System.Windows.Forms.Button();
@@ -37,6 +38,7 @@ namespace CalendarApp {
             this.label2 = new System.Windows.Forms.Label();
             this.tbTime = new System.Windows.Forms.TextBox();
             this.btOld = new System.Windows.Forms.Button();
+            this.tmTimeDisp = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // label1
@@ -173,6 +175,11 @@ namespace CalendarApp {
             this.btOld.UseVisualStyleBackColor = true;
             this.btOld.Click += new System.EventHandler(this.btOld_Click);
             // 
+            // tmTimeDisp
+            // 
+            this.tmTimeDisp.Interval = 1;
+            this.tmTimeDisp.Tick += new System.EventHandler(this.tmTimeDisp_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -193,6 +200,7 @@ namespace CalendarApp {
             this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "カレンダーアプリ";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -213,6 +221,7 @@ namespace CalendarApp {
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbTime;
         private System.Windows.Forms.Button btOld;
+        private System.Windows.Forms.Timer tmTimeDisp;
     }
 }
 
