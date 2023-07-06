@@ -159,7 +159,7 @@ namespace CalendarApp {
             this.tbTime.Location = new System.Drawing.Point(162, 393);
             this.tbTime.Multiline = true;
             this.tbTime.Name = "tbTime";
-            this.tbTime.Size = new System.Drawing.Size(229, 29);
+            this.tbTime.Size = new System.Drawing.Size(524, 29);
             this.tbTime.TabIndex = 3;
             // 
             // btOld

@@ -20,7 +20,7 @@ namespace CalendarApp {
         }
 
         private void MoveTimer_Tick(object sender, EventArgs e) {
-            tbTime.Text = DateTime.Now.ToString();
+            tbTime.Text = DateTime.Now.ToString("yyyy年MM月dd日(dddd)  HH時mm分ss秒");
         }
 
         private void btDayCalc_Click(object sender, EventArgs e) {
@@ -62,15 +62,16 @@ namespace CalendarApp {
         }
 
         private void btOld_Click(object sender, EventArgs e) {
-            int oldYear = DateTime.Now.Year - dtpDate.Value.Year;
-            int oldMonth = DateTime.Now.Month - dtpDate.Value.Month;
-            int oldDay = DateTime.Now.Day - dtpDate.Value.Day;
-            if (oldMonth < 0) {
-                oldYear--;
-            } else if (oldMonth == 0 && oldDay < 0) {
-                oldYear--;
+            var age = GetAge(dtpDate.Value,DateTime.Now);
+            tbMessage.Text = "現在の年齢："+age+"歳";
+        }
+
+        private static int GetAge(DateTime birthday, DateTime targetDay) {
+            var age = targetDay.Year - birthday.Year;
+            if (targetDay < birthday.AddYears(age)) {
+                age--;
             }
-            tbMessage.Text = "現在の年齢："+oldYear+"歳";
+            return age;
         }
     }
 }
