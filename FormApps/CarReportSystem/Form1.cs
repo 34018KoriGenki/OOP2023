@@ -32,22 +32,14 @@ namespace CarReportSystem {
         }
 
         private CarReport.MakerGroup getSelectedMaker() {
-
-            if (rbToyota.Checked) return CarReport.MakerGroup.トヨタ;
-
-            if (rbNissan.Checked) return CarReport.MakerGroup.日産;
-
-            if (rbHonda.Checked) return CarReport.MakerGroup.ホンダ;
-
-            if (rbSubaru.Checked) return CarReport.MakerGroup.スバル;
-
-            if (rbSuzuki.Checked) return CarReport.MakerGroup.スズキ;
-
-            if (rbDaihatsu.Checked) return CarReport.MakerGroup.ダイハツ;
-
-            if (rbImported.Checked) return CarReport.MakerGroup.輸入車;
-
-            return CarReport.MakerGroup.その他;
+            int num = 0;
+            foreach (RadioButton rb in gbMaker.Controls) {
+                if (rb.Checked) {
+                    num = int.Parse(rb.Tag.ToString());
+                    break;
+                }
+            }
+            return (CarReport.MakerGroup)num;
         }
     }
 }
