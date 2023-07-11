@@ -41,5 +41,21 @@ namespace CarReportSystem {
             }
             return (CarReport.MakerGroup)num;
         }
+
+        private void btImageOpen_Click(object sender, EventArgs e) {
+            ofdImageFileOpen.ShowDialog();
+            pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+        }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
+        }
+
+        private void btDeleteReport_Click(object sender, EventArgs e) {
+            if (dgvCarReports.SelectedRows.Count != 0) {
+                var src = dgvCarReports.SelectedRows;
+                dgvCarReports.Rows.RemoveAt(src[0].Index);
+            }
+        }
     }
 }
