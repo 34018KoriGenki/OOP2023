@@ -288,6 +288,7 @@ namespace CarReportSystem {
             this.dgvCarReports.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCarReports.Size = new System.Drawing.Size(634, 182);
             this.dgvCarReports.TabIndex = 10;
+            this.dgvCarReports.Click += new System.EventHandler(this.dgvCarReports_Click);
             // 
             // label6
             // 
@@ -329,6 +330,7 @@ namespace CarReportSystem {
             this.btImageDelete.TabIndex = 12;
             this.btImageDelete.Text = "削除";
             this.btImageDelete.UseVisualStyleBackColor = true;
+            this.btImageDelete.Click += new System.EventHandler(this.btImageDelete_Click);
             // 
             // pbCarImage
             // 
@@ -356,6 +358,7 @@ namespace CarReportSystem {
             // 
             // btModifyReport
             // 
+            this.btModifyReport.Enabled = false;
             this.btModifyReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btModifyReport.Location = new System.Drawing.Point(532, 301);
             this.btModifyReport.Margin = new System.Windows.Forms.Padding(4);
@@ -364,9 +367,11 @@ namespace CarReportSystem {
             this.btModifyReport.TabIndex = 14;
             this.btModifyReport.Text = "修正";
             this.btModifyReport.UseVisualStyleBackColor = true;
+            this.btModifyReport.Click += new System.EventHandler(this.btModifyReport_Click);
             // 
             // btDeleteReport
             // 
+            this.btDeleteReport.Enabled = false;
             this.btDeleteReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btDeleteReport.Location = new System.Drawing.Point(629, 301);
             this.btDeleteReport.Margin = new System.Windows.Forms.Padding(4);

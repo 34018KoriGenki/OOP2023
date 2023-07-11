@@ -29,8 +29,15 @@ namespace CarReportSystem {
                 CarImage = pbCarImage.Image,
             };
             carReports.Add(carReport);
+            if (dgvCarReports.Rows.Count == 1) ChengeEnabled();
         }
 
+        private void ChengeEnabled() {
+            btModifyReport.Enabled = !btModifyReport.Enabled;
+            btDeleteReport.Enabled = !btDeleteReport.Enabled;
+        }
+
+        //指定したラジオボタンのメーカーをセット
         private CarReport.MakerGroup getSelectedMaker() {
             int num = 0;
             foreach (RadioButton rb in gbMaker.Controls) {
@@ -40,6 +47,38 @@ namespace CarReportSystem {
                 }
             }
             return (CarReport.MakerGroup)num;
+        }
+
+        //指定したメーカーのラジオボタンをセット
+        private void getSelectedMaker(object makerGroup) {
+            switch (makerGroup) {
+                case CarReport.MakerGroup.トヨタ:
+                    rbToyota.Checked = true;
+                    break;
+                case CarReport.MakerGroup.日産:
+                    rbNissan.Checked = true;
+                    break;
+                case CarReport.MakerGroup.ホンダ:
+                    rbHonda.Checked = true;
+                    break;
+                case CarReport.MakerGroup.スバル:
+                    rbSubaru.Checked = true;
+                    break;
+                case CarReport.MakerGroup.スズキ:
+                    rbSuzuki.Checked = true;
+                    break;
+                case CarReport.MakerGroup.ダイハツ:
+                    rbDaihatsu.Checked = true;
+                    break;
+                case CarReport.MakerGroup.輸入車:
+                    rbImported.Checked = true;
+                    break;
+                case CarReport.MakerGroup.その他:
+                    rbOther.Checked = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void btImageOpen_Click(object sender, EventArgs e) {
@@ -52,8 +91,36 @@ namespace CarReportSystem {
         }
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
-            if (dgvCarReports.SelectedRows.Count != 0)
-                dgvCarReports.Rows.RemoveAt(dgvCarReports.CurrentRow.Index);
+            dgvCarReports.Rows.RemoveAt(dgvCarReports.CurrentRow.Index);
+            if (dgvCarReports.Rows.Count == 0) ChengeEnabled();
+        }
+
+        private void dgvCarReports_Click(object sender, EventArgs e) {
+            var data = dgvCarReports.CurrentCell.RowIndex;
+
+            dtpDate.Value = carReports[data].Date;
+            cbAuthor.Text = carReports[data].Author;
+            getSelectedMaker(carReports[data].Maker);
+            cbCarName.Text = carReports[data].CarName;
+            tbReport.Text = carReports[data].Report;
+            pbCarImage.Image = carReports[data].CarImage;
+        }
+
+        private void btModifyReport_Click(object sender, EventArgs e) {
+            int select = dgvCarReports.CurrentCell.RowIndex;
+            carReports[select] = new CarReport() {
+                Date = dtpDate.Value.Date,
+                Author = cbAuthor.Text,
+                Maker = getSelectedMaker(),
+                CarName = cbCarName.Text,
+                Report = tbReport.Text,
+                CarImage = pbCarImage.Image,
+            };
+            dgvCarReports.Refresh();    //一覧更新
+        }
+
+        private void btImageDelete_Click(object sender, EventArgs e) {
+            pbCarImage.Image = null;
         }
     }
 }
