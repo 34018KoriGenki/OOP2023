@@ -84,7 +84,7 @@ namespace CarReportSystem {
             this.rbToyota.Size = new System.Drawing.Size(50, 19);
             this.rbToyota.TabIndex = 0;
             this.rbToyota.TabStop = true;
-            this.rbToyota.Tag = "(int)0";
+            this.rbToyota.Tag = "0";
             this.rbToyota.Text = "トヨタ";
             this.rbToyota.UseVisualStyleBackColor = true;
             // 

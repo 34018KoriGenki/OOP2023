@@ -52,10 +52,8 @@ namespace CarReportSystem {
         }
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
-            if (dgvCarReports.SelectedRows.Count != 0) {
-                var src = dgvCarReports.SelectedRows;
-                dgvCarReports.Rows.RemoveAt(src[0].Index);
-            }
+            if (dgvCarReports.SelectedRows.Count != 0)
+                dgvCarReports.Rows.RemoveAt(dgvCarReports.CurrentRow.Index);
         }
     }
 }
