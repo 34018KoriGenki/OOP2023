@@ -12,6 +12,7 @@ namespace CarReportSystem {
     public partial class Form1 : Form {
         //管理用データ
         BindingList<CarReport> carReports = new BindingList<CarReport>();
+        ColorDialog Color = new ColorDialog();
 
         public Form1() {
             InitializeComponent();
@@ -19,6 +20,10 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            if (Properties.Settings.Default.BackColor != null) {
+                this.BackColor = (Color)Properties.Settings.Default.BackColor;
+            }
+            
             dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
             ButtonDisabled();
         }
@@ -39,7 +44,7 @@ namespace CarReportSystem {
                 statasLavelDisp("車名が設定されていません");
                 return;
             }
-            
+
             CarReport carReport = new CarReport() {
                 Date = dtpDate.Value.Date,
                 Author = cbAuthor.Text,
@@ -185,13 +190,29 @@ namespace CarReportSystem {
             Application.Exit();
         }
 
-        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            
-        }
+
 
         private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
             var vf = new VersionForm();
             vf.ShowDialog();        //モーダルダイアログとして表示
+        }
+
+        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Color.CustomColors = new int[] {
+                0x33, 0x66, 0x99, 0xCC, 0x3300, 0x3333,
+                0x3366, 0x3399, 0x33CC, 0x6600, 0x6633,
+                0x6666, 0x6699, 0x66CC, 0x9900, 0x9933
+            };
+            if (Color.ShowDialog() == DialogResult.OK) {
+                //選択された色の取得
+                BackColor = Color.Color;
+            }
+            
+        }
+
+        private void Form1_Closed(object sender, FormClosedEventArgs e) {
+            Properties.Settings.Default.BackColor = BackColor;
+            Properties.Settings.Default.Save();
         }
     }
 }
