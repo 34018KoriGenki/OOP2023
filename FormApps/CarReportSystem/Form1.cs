@@ -216,7 +216,6 @@ namespace CarReportSystem {
         }
 
         private void btScaleChange_Click(object sender, EventArgs e) {
-
             pbCarImage.SizeMode = (PictureBoxSizeMode)(num % 5);
             num++;
         }
