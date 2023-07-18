@@ -216,8 +216,8 @@ namespace CarReportSystem {
         }
 
         private void btScaleChange_Click(object sender, EventArgs e) {
-            pbCarImage.SizeMode = (PictureBoxSizeMode)num;
             num = num < 4 ? ++num : (num = 0);
+            pbCarImage.SizeMode = (PictureBoxSizeMode)num;
         }
     }
 }
