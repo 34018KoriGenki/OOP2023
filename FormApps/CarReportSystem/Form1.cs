@@ -14,20 +14,17 @@ namespace CarReportSystem {
         BindingList<CarReport> carReports = new BindingList<CarReport>();
         ColorDialog Color = new ColorDialog();
         Timer timer = new Timer();
-        
+
 
         public Form1() {
-            
             InitializeComponent();
             dgvCarReports.DataSource = carReports;
-            
-
         }
 
         private void Form1_Load(object sender, EventArgs e) {
             label8.Text = DateTime.Now.ToString();
             timer.Start();
-            timer.Interval = 1;            
+            timer.Interval = 1;
             timer.Tick += Timer_Tick;
             dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
             ButtonDisabled();
@@ -75,7 +72,7 @@ namespace CarReportSystem {
         }
 
         private void dgvCarReports_Click(object sender, EventArgs e) {
-            
+
             if (dgvCarReports.CurrentCell != null) {
                 var data = dgvCarReports.CurrentCell.RowIndex;
                 dtpDate.Value = carReports[data].Date;
@@ -199,8 +196,6 @@ namespace CarReportSystem {
             Application.Exit();
         }
 
-
-
         private void バージョン情報ToolStripMenuItem_Click(object sender, EventArgs e) {
             var vf = new VersionForm();
             vf.ShowDialog();        //モーダルダイアログとして表示
@@ -216,7 +211,6 @@ namespace CarReportSystem {
                 //選択された色の取得
                 BackColor = Color.Color;
             }
-            
         }
     }
 }
