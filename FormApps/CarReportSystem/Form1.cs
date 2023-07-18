@@ -13,17 +13,22 @@ namespace CarReportSystem {
         //管理用データ
         BindingList<CarReport> carReports = new BindingList<CarReport>();
         ColorDialog Color = new ColorDialog();
+        Timer timer = new Timer();
+        
 
         public Form1() {
+            
             InitializeComponent();
             dgvCarReports.DataSource = carReports;
+            
+
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            if (Properties.Settings.Default.BackColor != null) {
-                this.BackColor = (Color)Properties.Settings.Default.BackColor;
-            }
-            
+            label8.Text = DateTime.Now.ToString();
+            timer.Start();
+            timer.Interval = 1;            
+            timer.Tick += Timer_Tick;
             dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
             ButtonDisabled();
         }
@@ -70,7 +75,7 @@ namespace CarReportSystem {
         }
 
         private void dgvCarReports_Click(object sender, EventArgs e) {
-            ButtonEnabled();
+            
             if (dgvCarReports.CurrentCell != null) {
                 var data = dgvCarReports.CurrentCell.RowIndex;
                 dtpDate.Value = carReports[data].Date;
@@ -79,8 +84,8 @@ namespace CarReportSystem {
                 cbCarName.Text = carReports[data].CarName;
                 tbReport.Text = carReports[data].Report;
                 pbCarImage.Image = carReports[data].CarImage;
-
-            } else ButtonDisabled();
+                ButtonEnabled();
+            }
         }
 
         private void btModifyReport_Click(object sender, EventArgs e) {
@@ -186,6 +191,10 @@ namespace CarReportSystem {
             ButtonDisabled();
         }
 
+        private void Timer_Tick(object sender, EventArgs e) {
+            label8.Text = DateTime.Now.ToString();
+        }
+
         private void 終了XToolStripMenuItem_Click(object sender, EventArgs e) {
             Application.Exit();
         }
@@ -208,11 +217,6 @@ namespace CarReportSystem {
                 BackColor = Color.Color;
             }
             
-        }
-
-        private void Form1_Closed(object sender, FormClosedEventArgs e) {
-            Properties.Settings.Default.BackColor = BackColor;
-            Properties.Settings.Default.Save();
         }
     }
 }

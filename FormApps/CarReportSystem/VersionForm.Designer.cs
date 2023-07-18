@@ -25,6 +25,7 @@ namespace CarReportSystem {
         /// </summary>
         private void InitializeComponent() {
             this.btOk = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btOk
@@ -37,22 +38,35 @@ namespace CarReportSystem {
             this.btOk.UseVisualStyleBackColor = true;
             this.btOk.Click += new System.EventHandler(this.btOk_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(38, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 33);
+            this.label1.TabIndex = 2;
+            // 
             // VersionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(257, 143);
+            this.ClientSize = new System.Drawing.Size(244, 143);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btOk);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VersionForm";
-            this.Text = "VersionForm";
+            this.Text = "バージョン情報";
+            this.Load += new System.EventHandler(this.VersionForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Button btOk;
+        private System.Windows.Forms.Label label1;
     }
 }
