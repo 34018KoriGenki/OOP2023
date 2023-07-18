@@ -14,7 +14,7 @@ namespace CarReportSystem {
         BindingList<CarReport> carReports = new BindingList<CarReport>();
         ColorDialog Color = new ColorDialog();
         Timer timer = new Timer();
-        int num = 0;
+        int num = 2147483647;
 
 
         public Form1() {
@@ -216,7 +216,8 @@ namespace CarReportSystem {
         }
 
         private void btScaleChange_Click(object sender, EventArgs e) {
-            pbCarImage.SizeMode = (PictureBoxSizeMode)(num % 5);
+            num %= 5;
+            pbCarImage.SizeMode = (PictureBoxSizeMode)num;
             num++;
         }
     }
