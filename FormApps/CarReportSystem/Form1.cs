@@ -14,6 +14,7 @@ namespace CarReportSystem {
         BindingList<CarReport> carReports = new BindingList<CarReport>();
         ColorDialog Color = new ColorDialog();
         Timer timer = new Timer();
+        int num = 0;
 
 
         public Form1() {
@@ -22,7 +23,7 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            label8.Text = DateTime.Now.ToString();
+            label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             timer.Start();
             timer.Interval = 1;
             timer.Tick += Timer_Tick;
@@ -115,8 +116,9 @@ namespace CarReportSystem {
         }
 
         private void btImageOpen_Click(object sender, EventArgs e) {
-            ofdImageFileOpen.ShowDialog();
-            pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+            if (ofdImageFileOpen.ShowDialog() == DialogResult.OK) {
+                pbCarImage.Image = Image.FromFile(ofdImageFileOpen.FileName);
+            }
         }
 
         private void btImageDelete_Click(object sender, EventArgs e) {
@@ -189,7 +191,7 @@ namespace CarReportSystem {
         }
 
         private void Timer_Tick(object sender, EventArgs e) {
-            label8.Text = DateTime.Now.ToString();
+            label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         }
 
         private void 終了XToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -211,6 +213,12 @@ namespace CarReportSystem {
                 //選択された色の取得
                 BackColor = Color.Color;
             }
+        }
+
+        private void btScaleChange_Click(object sender, EventArgs e) {
+
+            pbCarImage.SizeMode = (PictureBoxSizeMode)(num % 5);
+            num++;
         }
     }
 }
