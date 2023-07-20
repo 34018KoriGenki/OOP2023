@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarReportSystem {
-    //シリアライズするためにpabulic
+    //シリアライズするためにpubulic
     public class CarReport {
         [System.ComponentModel.DisplayName("日付")]
         public DateTime Date { get; set; }      //日付
