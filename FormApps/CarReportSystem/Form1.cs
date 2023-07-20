@@ -205,18 +205,20 @@ namespace CarReportSystem {
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             Color.CustomColors = new int[] {
-                0x33, 0x66, 0x99, 0xCC, 0x3300, 0x3333,
-                0x3366, 0x3399, 0x33CC, 0x6600, 0x6633,
-                0x6666, 0x6699, 0x66CC, 0x9900, 0x9933
+                0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff,
+                0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff,
+                0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff
             };
             if (Color.ShowDialog() == DialogResult.OK) {
                 //選択された色の取得
                 BackColor = Color.Color;
+                label8.BackColor = DefaultBackColor;
+                tsInfoText.BackColor = DefaultBackColor;
             }
         }
 
         private void btScaleChange_Click(object sender, EventArgs e) {
-            num = num < 4 ? ++num : (num = 0);
+            num = num < 4 ? (num == 1) ? 3 : ++num : 0;     //AutoSize(2)を除外
             pbCarImage.SizeMode = (PictureBoxSizeMode)num;
         }
     }

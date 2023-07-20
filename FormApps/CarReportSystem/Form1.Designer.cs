@@ -323,6 +323,7 @@ namespace CarReportSystem {
             // 
             // btImageOpen
             // 
+            this.btImageOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btImageOpen.Location = new System.Drawing.Point(434, 41);
             this.btImageOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btImageOpen.Name = "btImageOpen";
@@ -334,6 +335,7 @@ namespace CarReportSystem {
             // 
             // btImageDelete
             // 
+            this.btImageDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btImageDelete.Location = new System.Drawing.Point(532, 42);
             this.btImageDelete.Margin = new System.Windows.Forms.Padding(4);
             this.btImageDelete.Name = "btImageDelete";
@@ -495,14 +497,16 @@ namespace CarReportSystem {
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(584, 554);
+            this.label8.Location = new System.Drawing.Point(594, 551);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(38, 15);
+            this.label8.Size = new System.Drawing.Size(134, 15);
             this.label8.TabIndex = 0;
-            this.label8.Text = "label8";
+            this.label8.Text = "yyyy/MM/dd HH:mm:ss";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btScaleChange
             // 
+            this.btScaleChange.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btScaleChange.Location = new System.Drawing.Point(629, 43);
             this.btScaleChange.Name = "btScaleChange";
             this.btScaleChange.Size = new System.Drawing.Size(90, 29);
