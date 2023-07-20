@@ -31,9 +31,8 @@ namespace CarReportSystem {
             Timer timer = new Timer();
             label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             using (var setting = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(Settings));
-                settings = serializer.Deserialize(setting) as Settings;
-                BackColor = Color.FromArgb(settings.MainFormColor);
+                var serializer = new XmlSerializer(typeof(int));
+                BackColor = Color.FromArgb((int)serializer.Deserialize(setting));
                 label8.BackColor = DefaultBackColor;
                 tsInfoText.BackColor = DefaultBackColor;
             }
@@ -238,9 +237,10 @@ namespace CarReportSystem {
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルのシリアル化
+            settings.MainFormColor = BackColor.ToArgb();
             using (var setting = XmlWriter.Create("settings.xml")) {
-                var serializer = new XmlSerializer(settings.GetType());
-                serializer.Serialize(setting,settings);
+                var serializer = new XmlSerializer(settings.MainFormColor.GetType());
+                serializer.Serialize(setting,settings.MainFormColor);
             }
         }
     }
