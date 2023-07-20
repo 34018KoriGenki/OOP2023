@@ -3,27 +3,40 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace CarReportSystem {
     public partial class Form1 : Form {
         //管理用データ
         BindingList<CarReport> carReports = new BindingList<CarReport>();
-        ColorDialog Color = new ColorDialog();
-        Timer timer = new Timer();
-        int num = 0;
+        int mode = 0;
 
+        //設定情報保存用オブジェクト
+        Settings settings = new Settings();
 
         public Form1() {
+            
             InitializeComponent();
             dgvCarReports.DataSource = carReports;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            Timer timer = new Timer();
             label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            using (var setting = XmlReader.Create("settings.xml")) {
+                var serializer = new XmlSerializer(typeof(Settings));
+                settings = serializer.Deserialize(setting) as Settings;
+                BackColor = Color.FromArgb(settings.MainFormColor);
+                label8.BackColor = DefaultBackColor;
+                tsInfoText.BackColor = DefaultBackColor;
+            }
             timer.Start();
             timer.Interval = 1;
             timer.Tick += Timer_Tick;
@@ -204,22 +217,31 @@ namespace CarReportSystem {
         }
 
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
-            Color.CustomColors = new int[] {
+            cdColor.CustomColors = new int[] {
                 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff,
                 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff,
                 0xffffff, 0xffffff, 0xffffff, 0xffffff, 0xffffff
             };
-            if (Color.ShowDialog() == DialogResult.OK) {
+            if (cdColor.ShowDialog() == DialogResult.OK) {
                 //選択された色の取得
-                BackColor = Color.Color;
+                BackColor = cdColor.Color;
+                settings.MainFormColor = BackColor.ToArgb();
                 label8.BackColor = DefaultBackColor;
                 tsInfoText.BackColor = DefaultBackColor;
             }
         }
 
         private void btScaleChange_Click(object sender, EventArgs e) {
-            num = num < 4 ? (num == 1) ? 3 : ++num : 0;     //AutoSize(2)を除外
-            pbCarImage.SizeMode = (PictureBoxSizeMode)num;
+            mode = mode < 4 ? (mode == 1) ? 3 : ++mode : 0;     //AutoSize(2)を除外
+            pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルのシリアル化
+            using (var setting = XmlWriter.Create("settings.xml")) {
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(setting,settings);
+            }
         }
     }
 }

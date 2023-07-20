@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarReportSystem {
-    class Settings {
+    //設定情報
+    public class Settings {
+        public int MainFormColor { get; set; }
     }
 }
