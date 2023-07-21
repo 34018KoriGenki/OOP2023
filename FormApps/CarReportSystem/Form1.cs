@@ -22,7 +22,6 @@ namespace CarReportSystem {
         Settings settings = new Settings();
 
         public Form1() {
-            
             InitializeComponent();
             dgvCarReports.DataSource = carReports;
         }
@@ -30,12 +29,19 @@ namespace CarReportSystem {
         private void Form1_Load(object sender, EventArgs e) {
             Timer timer = new Timer();
             label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            using (var setting = XmlReader.Create("settings.xml")) {
-                var serializer = new XmlSerializer(typeof(int));
-                BackColor = Color.FromArgb((int)serializer.Deserialize(setting));
+            try {
+                using (var setting = XmlReader.Create("settings.xml")) {
+                    var serializer = new XmlSerializer(typeof(int));
+                    BackColor = Color.FromArgb((int)serializer.Deserialize(setting));
+                    label8.BackColor = DefaultBackColor;
+                    tsInfoText.BackColor = DefaultBackColor;
+                }
+            } catch (FileNotFoundException) {
+                BackColor = DefaultBackColor;
                 label8.BackColor = DefaultBackColor;
                 tsInfoText.BackColor = DefaultBackColor;
             }
+
             timer.Start();
             timer.Interval = 1;
             timer.Tick += Timer_Tick;
@@ -240,7 +246,7 @@ namespace CarReportSystem {
             settings.MainFormColor = BackColor.ToArgb();
             using (var setting = XmlWriter.Create("settings.xml")) {
                 var serializer = new XmlSerializer(settings.MainFormColor.GetType());
-                serializer.Serialize(setting,settings.MainFormColor);
+                serializer.Serialize(setting, settings.MainFormColor);
             }
         }
     }
