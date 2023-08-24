@@ -250,5 +250,17 @@ namespace CarReportSystem {
                 serializer.Serialize(setting, settings.MainFormColor);
             }
         }
+
+        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
+            if(sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
+
+            }
+        }
+
+        private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (ofdCarRepoOpen.ShowDialog() == DialogResult.OK) {
+
+            }
+        }
     }
 }
