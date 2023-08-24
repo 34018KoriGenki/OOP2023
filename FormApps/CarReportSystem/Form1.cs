@@ -198,6 +198,7 @@ namespace CarReportSystem {
         }
 
         private void ClearInfo() {
+            dgvCarReports.ClearSelection();
             dgvCarReports.CurrentCell = null;
             dtpDate.Value = DateTime.Now.Date;
             cbAuthor.Text = null;
