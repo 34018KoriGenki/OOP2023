@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -197,7 +198,6 @@ namespace CarReportSystem {
 
         private void ClearInfo() {
             dgvCarReports.ClearSelection();
-            dgvCarReports.CurrentCell = null;
             dtpDate.Value = DateTime.Now.Date;
             cbAuthor.Text = null;
             rbOther.Checked = true;
@@ -240,6 +240,18 @@ namespace CarReportSystem {
             pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
         }
 
+        private void setCbAuthor() {
+            foreach (var car in carReports) {
+                if (!cbAuthor.Items.Contains(car.Author)) cbAuthor.Items.Add(car.Author);
+            }
+        }
+
+        private void setCbCarName() {
+            foreach (var car in carReports) {
+                if (!cbCarName.Items.Contains(car.CarName)) cbCarName.Items.Add(car.CarName);
+            }
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルのシリアル化
             settings.MainFormColor = BackColor.ToArgb();
@@ -251,13 +263,34 @@ namespace CarReportSystem {
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
             if(sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
-
+                try {
+                    //バイナリデータ型式でシリアル化
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(sfdCarRepoSave.FileName,FileMode.Create)) {
+                        bf.Serialize(fs, carReports);
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
         private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
             if (ofdCarRepoOpen.ShowDialog() == DialogResult.OK) {
-
+                try {
+                    var bf = new BinaryFormatter();
+                    using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open,FileAccess.Read)) {
+                        carReports = (BindingList<CarReport>)bf.Deserialize(fs);
+                        dgvCarReports.DataSource = null;
+                        dgvCarReports.DataSource = carReports;
+                    }
+                    setCbAuthor();
+                    setCbCarName();
+                    
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
+                ClearInfo();
             }
         }
     }

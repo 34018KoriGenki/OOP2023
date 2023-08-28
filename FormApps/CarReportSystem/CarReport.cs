@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace CarReportSystem {
+    [Serializable]
     //シリアライズするためにpubulic
     public class CarReport {
         [System.ComponentModel.DisplayName("日付")]
