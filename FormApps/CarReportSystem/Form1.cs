@@ -123,13 +123,17 @@ namespace CarReportSystem {
                 CarImage = pbCarImage.Image,
             };
             dgvCarReports.Refresh();    //一覧更新
-            if (!cbAuthor.Items.Contains(cbAuthor.Text)) {
-                cbAuthor.Items.Add(cbAuthor.Text);
-            }
-            if (!cbCarName.Items.Contains(cbCarName.Text)) {
-                cbCarName.Items.Add(cbCarName.Text);
-            }
+            setCbAuthor(cbAuthor.Text);
+            setCbCarName(cbCarName.Text);
             ClearInfo();
+        }
+
+        private void setCbAuthor(string author) {
+            if (!cbAuthor.Items.Contains(author)) cbAuthor.Items.Add(author);
+        }
+
+        private void setCbCarName(string carName) {
+            if (!cbCarName.Items.Contains(carName)) cbCarName.Items.Add(carName);
         }
 
         private void btImageOpen_Click(object sender, EventArgs e) {
@@ -198,6 +202,7 @@ namespace CarReportSystem {
 
         private void ClearInfo() {
             dgvCarReports.ClearSelection();
+            dgvCarReports.CurrentCell = null;
             dtpDate.Value = DateTime.Now.Date;
             cbAuthor.Text = null;
             rbOther.Checked = true;
@@ -240,18 +245,6 @@ namespace CarReportSystem {
             pbCarImage.SizeMode = (PictureBoxSizeMode)mode;
         }
 
-        private void setCbAuthor() {
-            foreach (var car in carReports) {
-                if (!cbAuthor.Items.Contains(car.Author)) cbAuthor.Items.Add(car.Author);
-            }
-        }
-
-        private void setCbCarName() {
-            foreach (var car in carReports) {
-                if (!cbCarName.Items.Contains(car.CarName)) cbCarName.Items.Add(car.CarName);
-            }
-        }
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
             //設定ファイルのシリアル化
             settings.MainFormColor = BackColor.ToArgb();
@@ -281,15 +274,20 @@ namespace CarReportSystem {
                     var bf = new BinaryFormatter();
                     using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open,FileAccess.Read)) {
                         carReports = (BindingList<CarReport>)bf.Deserialize(fs);
-                        dgvCarReports.DataSource = null;
-                        dgvCarReports.DataSource = carReports;
+                        
                     }
-                    setCbAuthor();
-                    setCbCarName();
-                    
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message);
                 }
+                dgvCarReports.DataSource = null;
+                dgvCarReports.DataSource = carReports;
+                cbAuthor.Items.Clear();
+                cbCarName.Items.Clear();
+                foreach (var item in carReports) {
+                    setCbAuthor(item.Author);
+                    setCbCarName(item.CarName);
+                }
+                dgvCarReports.Columns[5].Visible = false;
                 ClearInfo();
             }
         }
