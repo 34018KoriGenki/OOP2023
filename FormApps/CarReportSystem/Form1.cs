@@ -33,14 +33,12 @@ namespace CarReportSystem {
                 using (var setting = XmlReader.Create("settings.xml")) {
                     var serializer = new XmlSerializer(typeof(int));
                     BackColor = Color.FromArgb((int)serializer.Deserialize(setting));
-                    label8.BackColor = DefaultBackColor;
-                    tsInfoText.BackColor = DefaultBackColor;
                 }
             } catch (FileNotFoundException) {
                 BackColor = DefaultBackColor;
-                label8.BackColor = DefaultBackColor;
-                tsInfoText.BackColor = DefaultBackColor;
             }
+            label8.BackColor = DefaultBackColor;
+            tsInfoText.BackColor = DefaultBackColor;
 
             timer.Start();
             timer.Interval = 1;
