@@ -44,6 +44,9 @@ namespace CarReportSystem {
             timer.Start();
             timer.Interval = 1;
             timer.Tick += Timer_Tick;
+            //dgvCarReports.RowsDefaultCellStyle.BackColor = Color.LightGray; //全体に色を設定
+            dgvCarReports.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;  //奇数行の色を上書き設定
+            
             dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
             ButtonDisabled();
         }
@@ -89,20 +92,6 @@ namespace CarReportSystem {
             ClearInfo();
         }
 
-        private void dgvCarReports_Click(object sender, EventArgs e) {
-
-            if (dgvCarReports.CurrentCell != null) {
-                var data = dgvCarReports.CurrentCell.RowIndex;
-                dtpDate.Value = carReports[data].Date;
-                cbAuthor.Text = carReports[data].Author;
-                getSelectedMaker(carReports[data].Maker);
-                cbCarName.Text = carReports[data].CarName;
-                tbReport.Text = carReports[data].Report;
-                pbCarImage.Image = carReports[data].CarImage;
-                ButtonEnabled();
-            }
-        }
-
         private void btModifyReport_Click(object sender, EventArgs e) {
             statasLavelDisp();
             if (cbAuthor.Text == "") {
@@ -126,6 +115,19 @@ namespace CarReportSystem {
             setCbAuthor(cbAuthor.Text);
             setCbCarName(cbCarName.Text);
             ClearInfo();
+        }
+
+        private void dgvCarReports_CellClick(object sender, DataGridViewCellEventArgs e) {
+            if (dgvCarReports.CurrentCell != null) {
+                var data = dgvCarReports.CurrentCell.RowIndex;
+                dtpDate.Value = carReports[data].Date;
+                cbAuthor.Text = carReports[data].Author;
+                getSelectedMaker(carReports[data].Maker);
+                cbCarName.Text = carReports[data].CarName;
+                tbReport.Text = carReports[data].Report;
+                pbCarImage.Image = carReports[data].CarImage;
+                ButtonEnabled();
+            }
         }
 
         private void setCbAuthor(string author) {

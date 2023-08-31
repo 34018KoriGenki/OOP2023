@@ -303,7 +303,7 @@ namespace CarReportSystem {
             this.dgvCarReports.Size = new System.Drawing.Size(634, 182);
             this.dgvCarReports.TabIndex = 13;
             this.dgvCarReports.TabStop = false;
-            this.dgvCarReports.Click += new System.EventHandler(this.dgvCarReports_Click);
+            this.dgvCarReports.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCarReports_CellClick);
             // 
             // label6
             // 
