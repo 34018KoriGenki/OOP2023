@@ -24,7 +24,7 @@ namespace CarReportSystem {
 
         public Form1() {
             InitializeComponent();
-            dgvCarReports.DataSource = carReports;
+            //dgvCarReports.DataSource = carReports;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -46,7 +46,7 @@ namespace CarReportSystem {
             timer.Tick += Timer_Tick;
             //dgvCarReports.RowsDefaultCellStyle.BackColor = Color.LightGray; //全体に色を設定
             dgvCarReports.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;  //奇数行の色を上書き設定
-            
+
             dgvCarReports.Columns[5].Visible = false;   //画像項目非表示
             ButtonDisabled();
         }
@@ -257,11 +257,11 @@ namespace CarReportSystem {
         }
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
-            if(sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
+            if (sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
                 try {
                     //バイナリデータ型式でシリアル化
                     var bf = new BinaryFormatter();
-                    using (FileStream fs = File.Open(sfdCarRepoSave.FileName,FileMode.Create)) {
+                    using (FileStream fs = File.Open(sfdCarRepoSave.FileName, FileMode.Create)) {
                         bf.Serialize(fs, carReports);
                     }
                 } catch (Exception ex) {
@@ -274,9 +274,9 @@ namespace CarReportSystem {
             if (ofdCarRepoOpen.ShowDialog() == DialogResult.OK) {
                 try {
                     var bf = new BinaryFormatter();
-                    using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open,FileAccess.Read)) {
+                    using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open, FileAccess.Read)) {
                         carReports = (BindingList<CarReport>)bf.Deserialize(fs);
-                        
+
                     }
                 } catch (Exception ex) {
                     MessageBox.Show(ex.Message);
@@ -292,6 +292,18 @@ namespace CarReportSystem {
                 dgvCarReports.Columns[5].Visible = false;
                 ClearInfo();
             }
+        }
+
+        private void carReportTableBindingNavigatorSaveItem_Click(object sender, EventArgs e) {
+            this.Validate();
+            this.carReportTableBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.infosys202329DataSet);
+        }
+
+        //接続ボタンイベントハンドラ
+        private void btConnection_Click(object sender, EventArgs e) {
+            // TODO: このコード行はデータを 'infosys202329DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
+            this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
         }
     }
 }
