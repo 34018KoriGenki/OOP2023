@@ -33,12 +33,12 @@ namespace Exercise01 {
             var emp = new Employee() {
                 Id = 1001,
                 Name = "阿部 隆",
-                HireDate = new DateTime(2003,07,01),
+                HireDate = new DateTime(2003, 07, 01),
             };
-            
+
             using (var writer = XmlWriter.Create(v)) {
                 var serializer = new XmlSerializer(emp.GetType());
-                serializer.Serialize(writer,emp);
+                serializer.Serialize(writer, emp);
             }
             using (var reader = XmlReader.Create(v)) {
                 var serializer = new XmlSerializer(emp.GetType());
@@ -103,7 +103,7 @@ namespace Exercise01 {
                 },
             };
 
-            using (var stream = new FileStream(v,FileMode.Create,FileAccess.Write)){
+            using (var stream = new FileStream(v, FileMode.Create, FileAccess.Write)) {
                 var serializer = new DataContractJsonSerializer(emps.GetType());
                 serializer.WriteObject(stream, emps);
             };
