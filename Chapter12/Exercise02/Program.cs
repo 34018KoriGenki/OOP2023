@@ -39,7 +39,7 @@ namespace Exercise02 {
         }
 
         private static void Exercise2_2(object novelist, string v) {
-            DataContractJsonSerializerSettings settings = new DataContractJsonSerializerSettings() {
+            var settings = new DataContractJsonSerializerSettings() {
                 DateTimeFormat = new DateTimeFormat("yyyy-MM-dd'T'HH:mm:ssZ")
             };
             using (var stream = new FileStream(v, FileMode.Create, FileAccess.Write)) {

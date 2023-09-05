@@ -77,7 +77,7 @@ namespace Exercise01 {
         private static void Exercise1_3(string v) {
             using (var reader = XmlReader.Create(v)) {
                 var serializer = new DataContractSerializer(typeof(Employee[]));
-                var emps = serializer.ReadObject(reader);
+                var emps = serializer.ReadObject(reader) as Employee[];
             }
             Console.WriteLine(File.ReadAllText(v));
             Console.WriteLine();
