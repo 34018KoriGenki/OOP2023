@@ -20,7 +20,8 @@ namespace CarReportSystem {
         int mode = 0;
 
         //設定情報保存用オブジェクト
-        Settings settings = new Settings();
+        Settings settings = Settings.getInstance();
+        
 
         public Form1() {
             InitializeComponent();
@@ -28,6 +29,7 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            
             Timer timer = new Timer();
             label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             try {
