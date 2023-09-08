@@ -69,16 +69,26 @@ namespace CarReportSystem {
                 statasLavelDisp("車名が設定されていません");
                 return;
             }
+            DataRow newRow = infosys202329DataSet.CarReportTable.NewRow();
 
-            CarReport carReport = new CarReport() {
-                Date = dtpDate.Value.Date,
-                Author = cbAuthor.Text,
-                Maker = GetSelectedMaker(),
-                CarName = cbCarName.Text,
-                Report = tbReport.Text,
-                CarImage = pbCarImage.Image,
-            };
-            carReports.Add(carReport);
+            newRow[1] = dtpDate.Value.Date;
+            newRow[2] = cbAuthor.Text;
+            newRow[3] = GetSelectedMaker();
+            newRow[4] = cbCarName.Text;
+            newRow[5] = tbReport.Text;
+            newRow[6] = ImageToByteArray(pbCarImage.Image);
+
+            infosys202329DataSet.CarReportTable.Rows.Add(newRow);
+            this.carReportTableTableAdapter.Update(infosys202329DataSet.CarReportTable);
+            //CarReport carReport = new CarReport() {
+            //    Date = dtpDate.Value.Date,
+            //    Author = cbAuthor.Text,
+            //    Maker = GetSelectedMaker(),
+            //    CarName = cbCarName.Text,
+            //    Report = tbReport.Text,
+            //    CarImage = pbCarImage.Image,
+            //};
+            //carReports.Add(carReport);
             if (!cbAuthor.Items.Contains(cbAuthor.Text)) {
                 cbAuthor.Items.Add(cbAuthor.Text);
             }
@@ -90,10 +100,10 @@ namespace CarReportSystem {
         }
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
-            this.Validate();
-            this.carReportTableBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.infosys202329DataSet);
-            ClearInfo();
+            dgvCarReports.Rows.RemoveAt(dgvCarReports.CurrentCell.RowIndex);
+            
+            this.carReportTableTableAdapter.Update(infosys202329DataSet.CarReportTable);ClearInfo();
+            
         }
 
         private void btModifyReport_Click(object sender, EventArgs e) {
@@ -319,7 +329,7 @@ namespace CarReportSystem {
         // バイト配列をImageオブジェクトに変換
         public static Image ByteArrayToImage(byte[] b) {
             ImageConverter imgconv = new ImageConverter();
-            Image img = b == null ? null : (Image)imgconv.ConvertFrom(b);
+            Image img = b.All(n => n == 0x0) ? null : (Image)imgconv.ConvertFrom(b);
             //Image img = (Image)imgconv.ConvertFrom(b);
             return img;
         }
