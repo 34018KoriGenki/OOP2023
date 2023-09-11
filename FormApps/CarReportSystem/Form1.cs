@@ -319,9 +319,9 @@ namespace CarReportSystem {
             // TODO: このコード行はデータを 'infosys202329DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
             dgvCarReports.ClearSelection();     //選択解除
-            foreach (var item in carReportTableTableAdapter.GetData()) {
-                setCbAuthor(item.Field<string>("Author"));
-                setCbCarName(item.Field<string>("CarName"));
+            foreach (var item in this.infosys202329DataSet.CarReportTable) {
+                setCbAuthor(item.Author);
+                setCbCarName(item.CarName);
             }
         }
 
