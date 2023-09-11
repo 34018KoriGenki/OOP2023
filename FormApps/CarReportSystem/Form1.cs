@@ -18,7 +18,6 @@ namespace CarReportSystem {
         //管理用データ
         BindingList<CarReport> carReports = new BindingList<CarReport>();
         int mode = 0;
-
         //設定情報保存用オブジェクト
         Settings settings = Settings.getInstance();
 
@@ -89,21 +88,17 @@ namespace CarReportSystem {
             //    CarImage = pbCarImage.Image,
             //};
             //carReports.Add(carReport);
-            if (!cbAuthor.Items.Contains(cbAuthor.Text)) {
-                cbAuthor.Items.Add(cbAuthor.Text);
-            }
-            if (!cbCarName.Items.Contains(cbCarName.Text)) {
-                cbCarName.Items.Add(cbCarName.Text);
-            }
+            setCbAuthor(cbAuthor.Text);
+            setCbCarName(cbCarName.Text);
 
             ClearInfo();
         }
 
         private void btDeleteReport_Click(object sender, EventArgs e) {
             dgvCarReports.Rows.RemoveAt(dgvCarReports.CurrentCell.RowIndex);
-            
-            this.carReportTableTableAdapter.Update(infosys202329DataSet.CarReportTable);ClearInfo();
-            
+
+            this.carReportTableTableAdapter.Update(infosys202329DataSet.CarReportTable); ClearInfo();
+
         }
 
         private void btModifyReport_Click(object sender, EventArgs e) {
@@ -324,21 +319,26 @@ namespace CarReportSystem {
             // TODO: このコード行はデータを 'infosys202329DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
             dgvCarReports.ClearSelection();     //選択解除
+            foreach (var item in carReportTableTableAdapter.GetData()) {
+                setCbAuthor(item.Field<string>("Author"));
+                setCbCarName(item.Field<string>("CarName"));
+            }
         }
 
         // バイト配列をImageオブジェクトに変換
         public static Image ByteArrayToImage(byte[] b) {
             ImageConverter imgconv = new ImageConverter();
-            Image img = b.All(n => n == 0x0) ? null : (Image)imgconv.ConvertFrom(b);
             //Image img = (Image)imgconv.ConvertFrom(b);
-            return img;
+            if (b == null || b.All(n => n == 0x0)) {
+                return null;
+            }
+            return (Image)imgconv.ConvertFrom(b);
         }
 
         // Imageオブジェクトをバイト配列に変換
         public static byte[] ImageToByteArray(Image img) {
             ImageConverter imgconv = new ImageConverter();
-            byte[] b = (byte[])imgconv.ConvertTo(img, typeof(byte[]));
-            return b;
+            return (byte[])imgconv.ConvertTo(img, typeof(byte[]));
         }
     }
 }
