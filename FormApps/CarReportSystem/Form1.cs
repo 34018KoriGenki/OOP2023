@@ -305,5 +305,22 @@ namespace CarReportSystem {
             ImageConverter imgconv = new ImageConverter();
             return (byte[])imgconv.ConvertTo(img, typeof(byte[]));
         }
+
+        private void btAuthorSearch_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByContainAuthor(this.infosys202329DataSet.CarReportTable,tbAuthor.Text);
+        }
+
+        private void btCarName_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByContainCarName(this.infosys202329DataSet.CarReportTable, tbCarName.Text);
+        }
+
+        private void btDateSearch_Click(object sender, EventArgs e) {
+            carReportTableTableAdapter.FillByDate(this.infosys202329DataSet.CarReportTable, dtpStartSearchDate.Text, dtpEndSearchDate.Text);
+        }
+
+        private void btReset_Click(object sender, EventArgs e) {
+            tbAuthor.Text = null;
+            tbCarName.Text = null;
+        }
     }
 }
