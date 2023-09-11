@@ -270,42 +270,8 @@ namespace CarReportSystem {
             }
         }
 
-        private void 保存ToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (sfdCarRepoSave.ShowDialog() == DialogResult.OK) {
-                try {
-                    //バイナリデータ型式でシリアル化
-                    var bf = new BinaryFormatter();
-                    using (FileStream fs = File.Open(sfdCarRepoSave.FileName, FileMode.Create)) {
-                        bf.Serialize(fs, carReports);
-                    }
-                } catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        private void 開くToolStripMenuItem_Click(object sender, EventArgs e) {
-            if (ofdCarRepoOpen.ShowDialog() == DialogResult.OK) {
-                try {
-                    var bf = new BinaryFormatter();
-                    using (FileStream fs = File.Open(ofdCarRepoOpen.FileName, FileMode.Open, FileAccess.Read)) {
-                        carReports = (BindingList<CarReport>)bf.Deserialize(fs);
-
-                    }
-                } catch (Exception ex) {
-                    MessageBox.Show(ex.Message);
-                }
-                dgvCarReports.DataSource = null;
-                dgvCarReports.DataSource = carReports;
-                cbAuthor.Items.Clear();
-                cbCarName.Items.Clear();
-                foreach (var item in carReports) {
-                    setCbAuthor(item.Author);
-                    setCbCarName(item.CarName);
-                }
-                dgvCarReports.Columns[6].Visible = false;
-                ClearInfo();
-            }
+        private void 接続ToolStripMenuItem_Click(object sender, EventArgs e) {
+            dbAccess();
         }
 
         private void carReportTableBindingNavigatorSaveItem_Click(object sender, EventArgs e) {
@@ -316,6 +282,10 @@ namespace CarReportSystem {
 
         //接続ボタンイベントハンドラ
         private void btConnection_Click(object sender, EventArgs e) {
+            dbAccess();
+        }
+
+        private void dbAccess() {
             // TODO: このコード行はデータを 'infosys202329DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
             dgvCarReports.ClearSelection();     //選択解除
