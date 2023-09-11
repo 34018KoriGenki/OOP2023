@@ -280,11 +280,6 @@ namespace CarReportSystem {
             this.tableAdapterManager.UpdateAll(this.infosys202329DataSet);
         }
 
-        //接続ボタンイベントハンドラ
-        private void btConnection_Click(object sender, EventArgs e) {
-            dbAccess();
-        }
-
         private void dbAccess() {
             // TODO: このコード行はデータを 'infosys202329DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
