@@ -28,7 +28,8 @@ namespace CarReportSystem {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-
+            this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
+            dgvCarReports.ClearSelection();     //選択解除
             Timer timer = new Timer();
             label8.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             try {
@@ -49,6 +50,7 @@ namespace CarReportSystem {
             dgvCarReports.AlternatingRowsDefaultCellStyle.BackColor = Color.LightGray;  //奇数行の色を上書き設定
 
             dgvCarReports.Columns[6].Visible = false;   //画像項目非表示
+            dgvCarReports.Columns[0].Visible = false;
             ButtonDisabled();
         }
 
@@ -271,7 +273,11 @@ namespace CarReportSystem {
         }
 
         private void 接続ToolStripMenuItem_Click(object sender, EventArgs e) {
-            dbAccess();
+            dbConnect();
+            tbAuthor.Enabled = true;
+            tbCarName.Enabled = true;
+            btDateSearch.Enabled = true;
+            btReset.Enabled = true;
         }
 
         private void carReportTableBindingNavigatorSaveItem_Click(object sender, EventArgs e) {
@@ -280,7 +286,7 @@ namespace CarReportSystem {
             this.tableAdapterManager.UpdateAll(this.infosys202329DataSet);
         }
 
-        private void dbAccess() {
+        private void dbConnect() {
             // TODO: このコード行はデータを 'infosys202329DataSet.CarReportTable' テーブルに読み込みます。必要に応じて移動、または削除をしてください。
             this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
             dgvCarReports.ClearSelection();     //選択解除
@@ -307,20 +313,44 @@ namespace CarReportSystem {
         }
 
         private void btAuthorSearch_Click(object sender, EventArgs e) {
-            carReportTableTableAdapter.FillByContainAuthor(this.infosys202329DataSet.CarReportTable,tbAuthor.Text);
+            carReportTableTableAdapter.FillByContainAuthor(this.infosys202329DataSet.CarReportTable, tbAuthor.Text);
+            tbCarName.Text = null;
+            dtpStartSearchDate.Value = DateTimePicker.MinimumDateTime;
+            dtpEndSearchDate.Value = DateTimePicker.MaximumDateTime;
         }
 
-        private void btCarName_Click(object sender, EventArgs e) {
+        private void btCarNameSearch_Click(object sender, EventArgs e) {
             carReportTableTableAdapter.FillByContainCarName(this.infosys202329DataSet.CarReportTable, tbCarName.Text);
+            tbAuthor.Text = null;
+            dtpStartSearchDate.Value = DateTimePicker.MinimumDateTime;
+            dtpEndSearchDate.Value = DateTimePicker.MaximumDateTime;
         }
 
         private void btDateSearch_Click(object sender, EventArgs e) {
             carReportTableTableAdapter.FillByDate(this.infosys202329DataSet.CarReportTable, dtpStartSearchDate.Text, dtpEndSearchDate.Text);
+            tbAuthor.Text = null;
+            tbCarName.Text = null;
         }
 
         private void btReset_Click(object sender, EventArgs e) {
-            tbAuthor.Text = null;
-            tbCarName.Text = null;
+            this.carReportTableTableAdapter.Fill(this.infosys202329DataSet.CarReportTable);
+            dgvCarReports.ClearSelection();     //選択解除
+        }
+
+        private void tbAuthor_TextChanged(object sender, EventArgs e) {
+            if (tbAuthor.Text != null && tbAuthor.Text != "") {
+                btAuthorSearch.Enabled = true;
+            } else {
+                btAuthorSearch.Enabled = false;
+            }
+        }
+
+        private void tbCarName_TextChanged(object sender, EventArgs e) {
+            if (tbCarName.Text != null && tbCarName.Text != "") {
+                btCarNameSearch.Enabled = true;
+            } else {
+                btCarNameSearch.Enabled = false;
+            }
         }
     }
 }
