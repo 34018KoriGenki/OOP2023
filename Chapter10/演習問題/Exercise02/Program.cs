@@ -14,7 +14,7 @@ namespace Exercise02 {
 
         private static void Pickup3DigitNumber(string file) {
             foreach (var line in File.ReadLines(file)) { 
-                foreach (Match match in Regex.Matches(line, @"^\b\d{3,}\b")) {
+                foreach (Match match in Regex.Matches(line, @"\b\d{3,}\b")) {
                     Console.WriteLine(match.Value);
                 }
             }
