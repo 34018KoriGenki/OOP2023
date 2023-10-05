@@ -72,7 +72,7 @@ namespace RssReader {
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e) {
             var catUrl = categorys.ToArray()[cbCategory.SelectedIndex].Value;
-            
+            cbUrl.Text = catUrl;
         }
     }
 }

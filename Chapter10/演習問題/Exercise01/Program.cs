@@ -21,7 +21,7 @@ namespace Exercise01 {
         }
 
         private static bool IsPhoneNumber(string str) {
-            return Regex.IsMatch(str, @"^0[7-9]0-\d{4}-\d{4}");
+            return Regex.IsMatch(str, @"^0[7-9]0-\d{4}-\d{4}$");
         }
     }
 }
