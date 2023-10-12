@@ -36,17 +36,25 @@ namespace Exercise01 {
             var publishYears = Library.Books.GroupBy(b => b.PublishedYear);
             foreach (var books in publishYears) {
                 Console.Write(books.Key + "年：");
-                Console.WriteLine(books.Count()+"冊");
+                Console.WriteLine(books.Count() + "冊");
             }
         }
 
         private static void Exercise1_4() {
-            var groups = Library.Books.GroupBy(b => b.PublishedYear);
-            foreach (var books in groups) {
-                foreach (var book in books.OrderByDescending(b => b.Price)) {
-                    var cat = Library.Categories.First(b => b.Id == book.CategoryId);
-                    Console.WriteLine("{0}年 {1}円 {2} ({3})",books.Key,book.Price,book.Title,cat.Name);
-                }
+            var books = Library.Books
+                                .OrderByDescending(b => b.PublishedYear)
+                                .ThenBy(b => b.CategoryId)
+                                .Join(Library.Categories,
+                                        book => book.CategoryId,
+                                        category => category.Id,
+                                        (book, category) => new {
+                                            PublishedYear = book.PublishedYear,
+                                            price = book.Price,
+                                            Title = book.Title,
+                                            Category = category.Name,
+                                        });
+            foreach (var book in books) {
+                Console.WriteLine($"{book.PublishedYear}年 {book.price}円 {book.Title} ({book.Category})");
             }
         }
 
@@ -55,15 +63,16 @@ namespace Exercise01 {
         }
 
         private static void Exercise1_6() {
-            
+
         }
 
         private static void Exercise1_7() {
-            
+
         }
 
         private static void Exercise1_8() {
-            
+
+
         }
     }
 }
