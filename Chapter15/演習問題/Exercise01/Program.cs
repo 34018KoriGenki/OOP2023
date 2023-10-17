@@ -108,6 +108,18 @@ namespace Exercise01 {
                     Console.WriteLine($"\t{item.Title}");
                 }
             }
+
+            //解答
+            var catid = Library.Categories.Single(c => c.Name == "Development").Id;
+            var groups = Library.Books.Where(b => b.CategoryId == catid)
+                                        .GroupBy(b => b.PublishedYear)
+                                        .OrderBy(b => b.Key);
+            foreach (var group in groups) {
+                Console.WriteLine($"#{group.Key}年");
+                foreach (var book in group) {
+                    Console.WriteLine($"{book.Title}");
+                }
+            }
         }
 
         private static void Exercise1_8() {
