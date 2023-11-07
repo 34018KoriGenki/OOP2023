@@ -14,31 +14,27 @@ using System.Xml.Linq;
 namespace RssReader {
     public partial class Form1 : Form {
         IEnumerable<ItemData> items;
-        string defaultSite = @"https://news.yahoo.co.jp/rss";
-        Dictionary<string,string> categorys;
+        string defaultSite = @"https://news.yahoo.co.jp/rss/";
+        Dictionary<string, string> categorys;
         public Form1() {
             InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            var categorys = new Dictionary<string, string>();
-            using (var wc = new WebClient()) {
-                wc.Encoding = Encoding.UTF8;
-                var url = wc.OpenRead(defaultSite);
-
-                XDocument xdoc = XDocument.Load(url);
-                var takes = xdoc.Root.Descendants("li").Descendants("a");
-                foreach (var topic in takes) {
-                    if (topic.FirstAttribute.Value.Contains(".xml")
-                            && !cbCategory.Items.Contains(topic.Value)) {
-                        cbCategory.Items.Add(topic.Value);
-                        categorys.Add(topic.Value,topic.FirstAttribute.Value);
-                    }
+            var xmls = new List<string>();
+            using(var wc = new WebClient()) {
+                var st = wc.DownloadString(defaultSite);
+                var matches = Regex.Matches(st, "<script((?!<script|/script>).|<script(?<depth>)|/script>(?<-depth>))*(?(depth)(?!))/script>");
+                foreach (var match in matches) {
+                    xmls.Add(match.ToString());
                 }
-                this.categorys = categorys;
-                cbCategory.Text = cbCategory.Items[0].ToString();
                 
             }
+            foreach (var xml in xmls) {
+                XDocument xdoc = XDocument.Load(xml);
+            }
+            
+
         }
 
         private void btGetUrl_Click(object sender, EventArgs e) {
