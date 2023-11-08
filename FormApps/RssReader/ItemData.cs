@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RssReader {
     public class ItemData {
-        public string Title { get; set; }
+        public string Name { get; set; }
         public string Link { get; set; }
     }
 }

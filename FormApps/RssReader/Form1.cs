@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 
 namespace RssReader {
@@ -21,20 +24,21 @@ namespace RssReader {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-            var xmls = new List<string>();
-            using(var wc = new WebClient()) {
+            var data = "";
+            using (var wc = new WebClient()) {
+                wc.Encoding = Encoding.UTF8;
                 var st = wc.DownloadString(defaultSite);
                 var matches = Regex.Matches(st, "<script((?!<script|/script>).|<script(?<depth>)|/script>(?<-depth>))*(?(depth)(?!))/script>");
                 foreach (var match in matches) {
-                    xmls.Add(match.ToString());
+                    if (match.ToString().Contains("{")) {
+                        data = match.ToString();
+                    }
                 }
-                
-            }
-            foreach (var xml in xmls) {
-                XDocument xdoc = XDocument.Load(xml);
-            }
-            
+                int first = data.IndexOf("{")-1;
+                int end = data.LastIndexOf("}") - first + 1;
 
+                data = data.Substring(first, end);
+            }
         }
 
         private void btGetUrl_Click(object sender, EventArgs e) {
@@ -50,12 +54,12 @@ namespace RssReader {
 
                 items = xdoc.Root.Descendants("item")
                     .Select(x => new ItemData() {
-                        Title = x.Element("title").Value,
+                        Name = x.Element("title").Value,
                         Link = x.Element("link").Value,
                     });
 
                 foreach (var item in items) {
-                    lbRssTitle.Items.Add(item.Title);
+                    lbRssTitle.Items.Add(item.Name);
                 }
             }
         }
