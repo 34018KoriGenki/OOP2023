@@ -79,6 +79,7 @@ namespace RssReader {
             this.cbUrl.Name = "cbUrl";
             this.cbUrl.Size = new System.Drawing.Size(985, 29);
             this.cbUrl.TabIndex = 5;
+            this.cbUrl.SelectedValueChanged += new System.EventHandler(this.cbUrl_SelectedValueChanged);
             // 
             // Form1
             // 

@@ -1,24 +1,21 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
 using System.Xml.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace RssReader {
     public partial class Form1 : Form {
         IEnumerable<ItemData> items;
         string defaultSite = @"https://news.yahoo.co.jp/rss/";
-        Dictionary<string, string> categorys;
+        Dictionary<string, string> categorys = new Dictionary<string, string>();
         public Form1() {
             InitializeComponent();
         }
@@ -34,15 +31,41 @@ namespace RssReader {
                         data = match.ToString();
                     }
                 }
-                int first = data.IndexOf("{")-1;
+                int first = data.IndexOf("{") - 1;
                 int end = data.LastIndexOf("}") - first + 1;
 
                 data = data.Substring(first, end);
+
+                var jsonDatas = JsonConvert.DeserializeXNode(data, "rssUrlList");
+
+                AddTitleList(jsonDatas, "categoryArticleRssItems");
+                AddTitleList(jsonDatas, "mediaArticleRssItems");
+                cbUrl.Text = defaultSite;
+                wbBrowser.Navigate(defaultSite);
+
+            }
+        }
+
+        private void AddTitleList(XDocument jsonDatas,string desc) {
+            items = jsonDatas.Root.Descendants("rssUrlList").Descendants(desc)
+                                .Select(x => new ItemData() {
+                                    Name = x.Element("name").Value,
+                                    Link = x.Element("url").Value,
+                                });
+            foreach (var item in items) {
+                categorys.Add(item.Name, item.Link);
+            }
+            foreach (var category in categorys) {
+                cbCategory.Items.Add(category.Key.ToString());
             }
         }
 
         private void btGetUrl_Click(object sender, EventArgs e) {
-            if (cbUrl.Text == "") return;
+            UpdateUrl();
+        }
+
+        private void UpdateUrl() {
+            if (cbUrl.Text == "" || cbUrl.Text == defaultSite) return;
             items = null;
             lbRssTitle.Items.Clear();
 
@@ -71,8 +94,14 @@ namespace RssReader {
         }
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e) {
-            var catUrl = categorys.ToArray()[cbCategory.SelectedIndex].Value;
-            cbUrl.Text = catUrl;
+            cbUrl.Text = defaultSite.Substring(0, defaultSite.Length - 4) +
+                categorys[cbCategory.SelectedItem.ToString()];
+            UpdateUrl();
+        }
+
+        private void cbUrl_SelectedValueChanged(object sender, EventArgs e) {
+            if (!cbUrl.Items.Contains(cbUrl.Text)) return;
+            cbUrl.Items.Add(cbUrl.Text);
         }
     }
 }
