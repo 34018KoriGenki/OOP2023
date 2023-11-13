@@ -48,17 +48,17 @@ namespace RssReader {
             this.lbRssTitle.ItemHeight = 19;
             this.lbRssTitle.Location = new System.Drawing.Point(27, 65);
             this.lbRssTitle.Name = "lbRssTitle";
-            this.lbRssTitle.Size = new System.Drawing.Size(861, 194);
+            this.lbRssTitle.Size = new System.Drawing.Size(861, 80);
             this.lbRssTitle.TabIndex = 2;
             this.lbRssTitle.SelectedIndexChanged += new System.EventHandler(this.lbRssTitle_SelectedIndexChanged);
             // 
             // wbBrowser
             // 
-            this.wbBrowser.Location = new System.Drawing.Point(27, 265);
+            this.wbBrowser.Location = new System.Drawing.Point(27, 164);
             this.wbBrowser.MinimumSize = new System.Drawing.Size(20, 20);
             this.wbBrowser.Name = "wbBrowser";
             this.wbBrowser.ScriptErrorsSuppressed = true;
-            this.wbBrowser.Size = new System.Drawing.Size(1068, 355);
+            this.wbBrowser.Size = new System.Drawing.Size(1068, 456);
             this.wbBrowser.TabIndex = 3;
             // 
             // cbCategory
@@ -69,6 +69,7 @@ namespace RssReader {
             this.cbCategory.Name = "cbCategory";
             this.cbCategory.Size = new System.Drawing.Size(201, 24);
             this.cbCategory.TabIndex = 4;
+            this.cbCategory.Text = "カテゴリー選択";
             this.cbCategory.SelectedIndexChanged += new System.EventHandler(this.cbCategory_SelectedIndexChanged);
             // 
             // cbUrl

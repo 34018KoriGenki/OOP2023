@@ -41,12 +41,13 @@ namespace RssReader {
                 AddTitleList(jsonDatas, "categoryArticleRssItems");
                 AddTitleList(jsonDatas, "mediaArticleRssItems");
                 cbUrl.Text = defaultSite;
+                cbUrl.Items.Add(defaultSite);
                 wbBrowser.Navigate(defaultSite);
 
             }
         }
 
-        private void AddTitleList(XDocument jsonDatas,string desc) {
+        private void AddTitleList(XDocument jsonDatas, string desc) {
             items = jsonDatas.Root.Descendants("rssUrlList").Descendants(desc)
                                 .Select(x => new ItemData() {
                                     Name = x.Element("name").Value,
@@ -68,6 +69,7 @@ namespace RssReader {
         }
 
         private void UpdateUrl() {
+            if (cbUrl.Text == defaultSite) wbBrowser.Navigate(defaultSite);
             if (cbUrl.Text == "" || cbUrl.Text == defaultSite) return;
             items = null;
             lbRssTitle.Items.Clear();
@@ -97,7 +99,7 @@ namespace RssReader {
         }
 
         private void cbCategory_SelectedIndexChanged(object sender, EventArgs e) {
-            cbUrl.Text = defaultSite.Substring(0, defaultSite.Length - 4) +
+            cbUrl.Text = defaultSite.Substring(0, defaultSite.Length - 5) +
                 categorys[cbCategory.SelectedItem.ToString()];
             UpdateUrl();
         }
