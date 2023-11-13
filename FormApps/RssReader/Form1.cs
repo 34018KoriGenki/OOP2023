@@ -62,6 +62,9 @@ namespace RssReader {
 
         private void btGetUrl_Click(object sender, EventArgs e) {
             UpdateUrl();
+            if (!cbUrl.Items.Contains(cbUrl.Text)) {
+                cbUrl.Items.Add(cbUrl.Text);
+            }
         }
 
         private void UpdateUrl() {
@@ -97,11 +100,6 @@ namespace RssReader {
             cbUrl.Text = defaultSite.Substring(0, defaultSite.Length - 4) +
                 categorys[cbCategory.SelectedItem.ToString()];
             UpdateUrl();
-        }
-
-        private void cbUrl_SelectedValueChanged(object sender, EventArgs e) {
-            if (!cbUrl.Items.Contains(cbUrl.Text)) return;
-            cbUrl.Items.Add(cbUrl.Text);
         }
     }
 }
