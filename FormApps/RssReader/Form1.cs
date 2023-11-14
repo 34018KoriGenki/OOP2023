@@ -57,7 +57,9 @@ namespace RssReader {
                 categorys.Add(item.Name, item.Link);
             }
             foreach (var category in categorys) {
-                cbCategory.Items.Add(category.Key.ToString());
+                if (!cbCategory.Items.Contains(category.Key.ToString())) {
+                    cbCategory.Items.Add(category.Key.ToString());
+                }
             }
         }
 

@@ -25,5 +25,9 @@ namespace VisibilityConverter {
         private void Button_Click(object sender, RoutedEventArgs e) {
             Resources["ButtonBrushKey"] = new SolidColorBrush(Colors.Green);
         }
+
+        private void ColorBox_Loaded(object sender, RoutedEventArgs e) {
+            ColorBox.SelectedIndex = 0;
+        }
     }
 }
