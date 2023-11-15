@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -22,28 +23,49 @@ namespace RssReader {
 
         private void Form1_Load(object sender, EventArgs e) {
             var data = "";
-            using (var wc = new WebClient()) {
-                wc.Encoding = Encoding.UTF8;
-                var st = wc.DownloadString(defaultSite);
-                var matches = Regex.Matches(st, "<script((?!<script|/script>).|<script(?<depth>)|/script>(?<-depth>))*(?(depth)(?!))/script>");
-                foreach (var match in matches) {
-                    if (match.ToString().Contains("{")) {
-                        data = match.ToString();
-                    }
+            try {
+                using (var wc = new WebClient()) {
+                    wc.Encoding = Encoding.UTF8;
+                    var tem = true;
+                    do {
+                        try {
+                            var st = wc.DownloadString(defaultSite);
+                            var matches = Regex.Matches(st, "<script((?!<script|/script>).|<script(?<depth>)|/script>(?<-depth>))*(?(depth)(?!))/script>");
+                            foreach (var match in matches) {
+                                if (match.ToString().Contains("{")) {
+                                    data = match.ToString();
+                                }
+                            }
+                            tem = false;
+
+                        } catch (WebException ex) {
+                            if (ex.ToString().Contains("404")) {
+                                MessageBox.Show(ex.Message);
+                            } else {
+                                tem = true;
+                                MessageBox.Show("ネット遅すぎ");
+                            }
+                        } catch (Exception ex) {
+                            MessageBox.Show(ex.ToString());
+                        }
+                    } while (tem);
+                    int first = data.IndexOf("{") - 1;
+                    int end = data.LastIndexOf("}") - first + 1;
+
+                    data = data.Substring(first, end);
+
+                    var jsonDatas = JsonConvert.DeserializeXNode(data, "rssUrlList");
+
+                    AddTitleList(jsonDatas, "categoryArticleRssItems");
+                    AddTitleList(jsonDatas, "mediaArticleRssItems");
+                    cbUrl.Text = defaultSite;
+                    cbUrl.Items.Add(defaultSite);
+                    wbBrowser.Navigate(defaultSite);
+
                 }
-                int first = data.IndexOf("{") - 1;
-                int end = data.LastIndexOf("}") - first + 1;
-
-                data = data.Substring(first, end);
-
-                var jsonDatas = JsonConvert.DeserializeXNode(data, "rssUrlList");
-
-                AddTitleList(jsonDatas, "categoryArticleRssItems");
-                AddTitleList(jsonDatas, "mediaArticleRssItems");
-                cbUrl.Text = defaultSite;
-                cbUrl.Items.Add(defaultSite);
-                wbBrowser.Navigate(defaultSite);
-
+            } catch (Exception) {
+                MessageBox.Show("何かしらの問題発生");
+                throw;
             }
         }
 
@@ -77,20 +99,33 @@ namespace RssReader {
             lbRssTitle.Items.Clear();
 
             using (var wc = new WebClient()) {
+                var tem = false;
+                do {
+                    try {
+                        var url = wc.OpenRead(cbUrl.Text);
+                        try {
+                            XDocument xdoc = XDocument.Load(url);
+                            items = xdoc.Root.Descendants("item")
+                            .Select(x => new ItemData() {
+                                Name = x.Element("title").Value,
+                                Link = x.Element("link").Value,
+                            });
 
-                var url = wc.OpenRead(cbUrl.Text);
-
-                XDocument xdoc = XDocument.Load(url);
-
-                items = xdoc.Root.Descendants("item")
-                    .Select(x => new ItemData() {
-                        Name = x.Element("title").Value,
-                        Link = x.Element("link").Value,
-                    });
-
-                foreach (var item in items) {
-                    lbRssTitle.Items.Add(item.Name);
-                }
+                            foreach (var item in items) {
+                                lbRssTitle.Items.Add(item.Name);
+                            }
+                            tem = false;
+                        } catch (XmlException ex) {
+                            wbBrowser.Navigate(cbUrl.Text);
+                        }
+                        tem = false;
+                    } catch (WebException ex) {
+                        
+                        MessageBox.Show("URLが無効です。\n入力しなおしてください。");
+                        cbUrl.Text = defaultSite;
+                        tem = true;
+                    }
+                } while (tem);
             }
         }
 
