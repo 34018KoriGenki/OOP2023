@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
+
 namespace RssReader {
     public partial class Form1 : Form {
         IEnumerable<ItemData> items;
@@ -22,10 +23,14 @@ namespace RssReader {
         }
 
         private void Form1_Load(object sender, EventArgs e) {
+            wbBrowser.Navigated += WbBrowser_Navigated;
+            wbBrowser.ProgressChanged += WbBrowser_ProgressChanged;
+            wbBrowser.DocumentCompleted += WbBrowser_DocumentCompleted;
             var data = "";
             try {
                 using (var wc = new WebClient()) {
                     wc.Encoding = Encoding.UTF8;
+
                     var tem = true;
                     do {
                         try {
@@ -39,12 +44,7 @@ namespace RssReader {
                             tem = false;
 
                         } catch (WebException ex) {
-                            if (ex.ToString().Contains("404")) {
-                                MessageBox.Show(ex.Message);
-                            } else {
-                                tem = true;
-                                MessageBox.Show("ネット遅すぎ");
-                            }
+                            MessageBox.Show(ex.ToString().Contains("404") ? ex.Message : "ネット遅すぎ");
                         } catch (Exception ex) {
                             MessageBox.Show(ex.ToString());
                         }
@@ -93,7 +93,10 @@ namespace RssReader {
         }
 
         private void UpdateUrl() {
-            if (cbUrl.Text == defaultSite) wbBrowser.Navigate(defaultSite);
+            if (cbUrl.Text == defaultSite) {
+                wbBrowser.Navigate(defaultSite);
+
+            }
             if (cbUrl.Text == "" || cbUrl.Text == defaultSite) return;
             items = null;
             lbRssTitle.Items.Clear();
@@ -120,7 +123,7 @@ namespace RssReader {
                         }
                         tem = false;
                     } catch (WebException ex) {
-                        
+
                         MessageBox.Show("URLが無効です。\n入力しなおしてください。");
                         cbUrl.Text = defaultSite;
                         tem = true;
@@ -140,5 +143,25 @@ namespace RssReader {
                 categorys[cbCategory.SelectedItem.ToString()];
             UpdateUrl();
         }
+
+        private void WbBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e) {
+            ProgressBarChange();
+        }
+
+        private void WbBrowser_ProgressChanged(object sender, WebBrowserProgressChangedEventArgs e) {
+            progressBar1.Value = 10;
+        }
+
+        private void WbBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e) {
+            progressBar1.Value = progressBar1.Maximum;
+        }
+
+
+        private void ProgressBarChange() {
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = (int)wbBrowser.DocumentStream.Length;
+            progressBar1.Value = 0;
+        }
     }
 }
+

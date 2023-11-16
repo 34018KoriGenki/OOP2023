@@ -29,6 +29,7 @@ namespace RssReader {
             this.wbBrowser = new System.Windows.Forms.WebBrowser();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.cbUrl = new System.Windows.Forms.ComboBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // btGetUrl
@@ -81,16 +82,25 @@ namespace RssReader {
             this.cbUrl.Size = new System.Drawing.Size(985, 29);
             this.cbUrl.TabIndex = 5;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(27, 627);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(100, 23);
+            this.progressBar1.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1107, 632);
+            this.ClientSize = new System.Drawing.Size(1107, 657);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.cbUrl);
             this.Controls.Add(this.cbCategory);
             this.Controls.Add(this.wbBrowser);
             this.Controls.Add(this.lbRssTitle);
             this.Controls.Add(this.btGetUrl);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -104,6 +114,7 @@ namespace RssReader {
         private System.Windows.Forms.WebBrowser wbBrowser;
         private System.Windows.Forms.ComboBox cbCategory;
         private System.Windows.Forms.ComboBox cbUrl;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }
 
